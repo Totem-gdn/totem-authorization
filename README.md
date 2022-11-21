@@ -4,7 +4,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 # How to use
 
-To authorize and then redirect to the website or application you need (such as Totem Admin or games), you must go to the page of this application: `https://authorize.totem.gdn?success_url=<REDIRECT_URL>` where `REDIRECT_URL` is a link to the application where you want to login and where you will be redirected.
+To authorize and then redirect to the website or application you need, you must go to the authorization service page including the `success_url` parameter:
+`https://authorize.totem.gdn?success_url=<REDIRECT_URL>` where `REDIRECT_URL` is a link to the application where you want to login and where you will be redirected.
 
 A `token` parameter will be added to your URL which will contain the JWT token.
 
