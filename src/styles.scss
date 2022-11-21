@@ -1,1 +1,96 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$totem-safe-data-primary: mat.define-palette(mat.$indigo-palette);
+$totem-safe-data-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$totem-safe-data-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$totem-safe-data-theme: mat.define-light-theme((
+  color: (
+    primary: $totem-safe-data-primary,
+    accent: $totem-safe-data-accent,
+    warn: $totem-safe-data-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($totem-safe-data-theme);
+
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+html, body {
+  height: 100%;
+}
+body { margin: 0; font-family: 'Roboto', sans-serif; }
+
+.h-full {
+  height: 100%;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.b-300 {
+  font-weight: 300;
+}
+.b-400 {
+  font-weight: 400;
+}
+.b-500 {
+  font-weight: 500;
+}
+.b-700 {
+  font-weight: 700;
+}
+
+.mt-10 { margin-top: 10px;}
+.mt-16 { margin-top: 16px;}
+.mt-20 { margin-top: 20px;}
+.mt-24 { margin-top: 24px;}
+.mt-28 { margin-top: 28px;}
+.mt-32 { margin-top: 32px;}
+.mt-40 { margin-top: 40px;}
+
+.font-14 { font-size: 14px; }
+.font-16 { font-size: 16px; }
+.font-18 { font-size: 18px; }
+.font-24 { font-size: 24px; }
+.font-28 { font-size: 28px; }
+.font-32 { font-size: 32px; }
+.font-36 { font-size: 36px; }
+.font-40 { font-size: 40px; }
+.font-60 { font-size: 60px; line-height: 66px; }
+
+.flex-center-all {
+  display: flex;
+  align-items: center;
+  place-content: center center;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+
+.mat-progress-spinner circle, .mat-spinner circle {
+  stroke: #1B6BEC;
+}
