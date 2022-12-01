@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  WEB3AUTH_ID: 'BMUaCGWAqX7ulSauE1dvkhhiGy1OUcVPaDNexeWCj8K9Hs4EFtOMGjhFGMnwxLOypcA4g6UlzAa8UF35POXQFtI',
+  WEB3AUTH_ID: 'BAQ6yarrhApPOJlWKKwyq8hKWitgkASuEKT1cKDz2vf4rvbeh7lPBUhYBHpIIcLIoDIhZxmq0JpW4jqbg6Hqg3o',
   BLOCKCHAIN_CONFIG: {
     name: 'mumbai',
     chainId: "0x13881",
