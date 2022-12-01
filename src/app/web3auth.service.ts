@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Web3Auth } from "@web3auth/modal";
 import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
+import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import RPC from "./web3rpc";
 import { environment } from "src/environments/environment";
 const clientId = environment.WEB3AUTH_ID;
@@ -23,6 +24,12 @@ export class Web3AuthService {
         }
       });
       const web3auth = this.web3auth;
+      const openloginAdapter = new OpenloginAdapter({
+          adapterSettings: {
+              network: 'mainnet'
+          },
+      })
+      web3auth.configureAdapter(openloginAdapter);
       await web3auth.initModal();
       if (web3auth.provider) {
         this.provider = web3auth.provider;
