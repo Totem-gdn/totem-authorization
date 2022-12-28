@@ -1,303 +1,203 @@
+
 #w3a-modal {
   backdrop-filter: blur(40px) !important;
-  // --text-header: font-family: Roboto !important;
-  // --text-color2: $light-grey !important;
-}
+  font-family: Roboto !important;
+  --text-color2: $light-grey !important;
+  --text-color1: $light-grey !important;
+  --tw-ring-color: $yellow !important;
 
-.w3a-modal__inner {
-  overflow-y: overlay !important;
-  width: 100% !important;
-  max-width: 400px !important;
-  min-height: 450px !important;
-  background-color: $black !important;
-  background-repeat: no-repeat !important;
-  background-size: cover !important;
-  // background-image: url('../../assets/images/login-popup__background.png') !important;
-}
+  .w3a-header__title {
+    padding-top: 0px !important;
+    text-transform: uppercase;
+    font-weight: 400 !important;
+    color: $black !important;
+    font-size: 36px !important;
+    margin-bottom: 10px !important;
+  }
+  .w3a-header__subtitle {
+    color: $black !important;
+    font-family: Roboto;
+    font-size: 16px !important;
+  }
+  img.w3a-header__logo {
+    content: url("../../assets/images/logo.svg");
+    width: 108px !important;
+    height: 100px !important;
+  }
+  button, input {
+    margin-bottom: 30px !important;
+    border-radius: 0px !important;
+  }
 
-.w3a-header__title {
-  font-family: "Totem" !important;
-  font-size: 36px !important;
-  font-weight: 400 !important;
-  color: $black !important;
-  text-transform: uppercase !important;
-}
-.w3a-group__title {
-  padding-left: 5px !important;
-  font-size: 20px !important;
-  margin-bottom: 15px !important;
-  color: $light-grey !important;
-}
-.w3a-header__subtitle {
-  color: $black !important;
-  font-size: 14px !important;
-  font-weight: 500 !important;
-}
-.w3a-modal__content {
-  padding: 20px !important;
-}
+  input {
+    background-color: $white !important;
+    outline: $light-grey;
+    color: $black !important;
+    transition: box-shadow .3s ease-in-out !important;
+    // box-shadow: 0 0 2px $light-grey !important;
+    box-shadow: none !important;
+    outline: 1px solid $light-grey !important;
+    &:focus {
+      outline: 1px solid $black !important;
+      // box-shadow: 0 0 4px $yellow !important;
+    }
+      &::placeholder {
+    color: $light-grey !important;
+   }
+  }
+  .w3ajs-social-logins {
+    padding-top: 10px !important;
+  }
 
-.w3ajs-social-logins {
-  display: flex !important;
-  padding-bottom: 10px !important;
-  & .w3a-group__title {
-    display: none !important;
+  .text-right {
+    border-top: 1px solid $dark-grey;
   }
-}
-.w3a-adapter-list {
-  gap: 20px !important;
-  .w3a-button--icon {
-    margin: 0 !important;
-    border-radius: 9999px !important;
-    background-color: $black !important;
-    // border: 1px solid $dark-grey !important;
-  }
-}
-.w3ajs-socials-adapters {
-  img {
-    display: none !important;
-  }
-  & .w3a-button--icon {
-    background-repeat: no-repeat !important;
-    background-size: cover !important;
-  }
-  & .w3a-adapter-item:nth-child(1) {
-    & .w3a-button--icon {
-      background-image: url("../../assets/images/svgs/google.svg") !important;
-    }
-  }
-  & .w3a-adapter-item:nth-child(2) {
-    & .w3a-button--icon {
-      background-image: url("../../assets/images/svgs/facebook.svg") !important;
-    }
-  }
-  & .w3a-adapter-item:nth-child(3) {
-    & .w3a-button--icon {
-      background-image: url("../../assets/images/svgs/reddit.svg") !important;
-    }
-  }
-  & .w3a-adapter-item:nth-child(4) {
-    & .w3a-button--icon {
-      background-image: url("../../assets/images/svgs/discord.svg") !important;
-    }
-  }
-  & .w3a-adapter-item:nth-child(5) {
-    & .w3a-button--icon {
-      background-image: url("../../assets/images/svgs/twitch.svg") !important;
-    }
-  }
-  & .w3a-adapter-item:nth-child(6) {
-    & .w3a-button--icon {
-      background-image: url("../../assets/images/svgs/apple.svg") !important;
-    }
-  }
-  & .w3a-adapter-item:nth-child(7) {
-    & .w3a-button--icon {
-      background-image: url("../../assets/images/svgs/lineweb3.svg") !important;
-    }
-  }
-  & .w3a-adapter-item:nth-child(8) {
-    & .w3a-button--icon {
-      background-image: url("../../assets/images/svgs/github.svg") !important;
-    }
-  }
-  & .w3a-adapter-item:nth-child(9) {
-    & .w3a-button--icon {
-      background-image: url("../../assets/images/svgs/talk.svg") !important;
-    }
-  }
-  & .w3a-adapter-item:nth-child(10) {
-    & .w3a-button--icon {
-      background-image: url("../../assets/images/svgs/linked.svg") !important;
-    }
-  }
-  & .w3a-adapter-item:nth-child(11) {
-    & .w3a-button--icon {
-      background-image: url("../../assets/images/svgs/twitter.svg") !important;
-    }
-  }
-  & .w3a-adapter-item:nth-child(12) {
-    & .w3a-button--icon {
-      background-image: url("../../assets/images/svgs/weibo.svg") !important;
-    }
-  }
-  & .w3a-adapter-item:nth-child(13) {
-    & .w3a-button--icon {
-      background-image: url("../../assets/images/svgs/wechat.svg") !important;
-    }
-  }
-}
-.w3ajs-close-btn {
-  img {
-    content: url("../../assets/images/svgs/close_btn.svg");
-  }
-}
-.w3a-button-expand {
-  border: 0 !important;
-  height: 48px !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  width: 30px !important;
-  min-width: 30px !important;
-  img {
-    margin: auto !important;
-    left: 0 !important;
-    width: 20px !important;
-    height: 20px !important;
+  .w3a-button-expand {
+    margin-bottom: 0px !important;
   }
   .w3ajs-button-expand-text {
-    display: none !important;
+    color: $light-grey !important;
   }
-}
-.w3a-group--email {
-  padding: 0 !important;
-  margin-bottom: 30px !important;
-}
-.w3a-text-field {
-  color: $black !important;
-  border-radius: 1px !important;
-  border: 1px solid $light-grey !important;
-  box-shadow: none !important;
-  padding: 0 10px !important;
-  margin-bottom: 30px !important;
-  font-size: 16px !important;
-  font-weight: 500 !important;
-}
-
-.w3a-footer__secured {
-  display: none;
-}
-.w3a-button {
-  font-family: "Totem" !important;
-  font-size: 16px !important;
-  padding-right: 7px !important;
-  padding-left: 7px !important;
-  border: 0 !important;
-  border-radius: 4px !important;
-  background-color: $black !important;
-  font-weight: 400 !important;
-  color: $white !important;
-  margin-bottom: 30px !important;
-  text-transform: uppercase !important;
-}
-
-.w3ajs-external-toggle__button {
-  margin: 0 !important;
-}
-.w3a-adapter-item {
-  margin: 0 !important;
-}
-
-.w3a-external-back {
-  margin: 0 !important;
-  margin-bottom: 10px !important;
-  div {
-    margin: 0 !important;
+  .w3a-button--login {
+    border-radius: 9999px !important;
+    &:focus {
+      outline: none !important;
+    }
   }
-}
-.w3a-modal__loader {
-  // display: none !important;
-  background-size: cover !important;
-  // background-image: url('../../assets/images/login-popup__background.png') !important;
-  background-color: #ffd011 !important;
-}
-
-.w3a-modal__content,
-.w3a-modal__header,
-.w3a-modal__footer {
-  background-color: $white !important;
-  color: $white !important;
+  .w3a-external-back .w3a-group__title {
+    color: $light-grey !important;
+    margin-bottom: 0px !important;
+  }
+  .w3a-group__title {
+    color: $light-grey !important;
+  }
+  .w3a-external-toggle button {
+    margin-bottom: 0px !important;
+  }
 }
 
 .w3a-modal__header {
-  padding: 60px 20px 20px 20px !important;
-  box-shadow: none !important;
-  background-color: $yellow !important;
-}
-.w3a-group {
-  border-bottom: 1px solid $dark-grey !important;
+  font-family: Totem;
+  background-color: $yellow;
+  padding-top: 50px !important;
+  padding-bottom: 30px !important;
+
 }
 
-img.w3a-header__logo {
-  content: url("../../assets/images/logo.svg");
-  width: 108px !important;
-  height: 100px !important;
+.w3a-social__policy {
+  display: none !important;
 }
 
-.w3a-header {
-  .w3a-header__logo {
-    order: 2;
-    margin-right: 0 !important;
+.w3a-adapter-list {
+  button {
+    background-color: $black !important;
   }
-
-  &:nth-child(2) {
-    order: 1;
-  }
+}
+.w3a-group__title {
+  font-size: 20px !important;
+  margin-bottom: 15px !important;
+}
+.w3a-modal__inner, .w3ajs-modal-loader {
+  overflow-y: scroll !important;
+  border-radius: 4px !important;
+  border: none !important;
+  background-color: $white !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  // background-image: url('../../../assets/images/login-popup__background.png') !important;
+}
+.w3a-social__policy {
+  border-bottom: 1px solid $light-grey !important;
+    text-align: center !important;
 }
 
 .w3a-modal__footer {
-  padding: 0 !important;
-}
+  background-color: $white !important;
 
-.w3a-footer {
-  font-size: 14px !important;
-  padding: 20px 20px 30px 20px !important;
-  color: $light-grey !important;
-  & a:first-child {
-    padding-right: 5px !important;
-  }
-  & a:last-child {
-    padding-left: 5px !important;
-  }
-  // & span {
-  //   display: none !important;
-  // }
-}
-.w3a-modal__loader-content {
-  margin: auto !important;
-  color: $light-grey !important;
-}
-.w3a-spinner {
-  background: conic-gradient(transparent, $yellow) !important;
-}
-.w3a-spinner__mask {
-  background-color: $black !important;
-}
-.w3a-spinner-message {
-  // display: none !important;
-  color: $white !important;
-}
-.w3a-spinner__head {
-  background-color: $yellow !important;
-}
-.w3ajs-external-wallet {
-  border: none !important;
-}
-.w3a-adapter-item__label {
-  color: $white;
-}
-
-.w3a-wallet-connect-qr {
-  transform: translateX(26px);
-  margin-left: 0 !important;
-}
-
-.w3a-wallet-connect__container--android {
-  background-color: transparent !important;
-}
-
-.w3a-modal {
-  z-index: 99999;
-}
-.w3ajs-email-passwordless {
-  button {
-    text-indent: -9999px;
-    line-height: 0;
-    &::after {
-      content: "Continue";
-      text-indent: 0;
-      display: block;
-      line-height: initial;
+  div {
+    div {
+      color: $light-grey !important;
+      div:first-child {
+        display: none !important;
+      }
+      div:last-child {
+        margin-bottom: 15px !important;
+        font-size: 16px !important;
+        span {
+          // display: none !important;
+        }
+        display: flex !important;
+        // gap: 20px !important;
+      }
     }
   }
 }
+.w3a-footer {
+  justify-content: start !important;
+  a {
+    font-size: 14px !important;
+  }
+}
+.w3a-adapter-list { 
+  grid-template-columns: repeat(5,minmax(0,1fr)) !important;
+  li:first-child {
+    grid-column: span 1/ span 1;
+    button {
+      p {
+        display: none !important;
+      }
+    }
+  }
+  li {
+    display: flex !important;
+    justify-content: center !important;
+    button {
+      width: 46px !important;
+      padding: 10px !important;
+      height: 46px !important;
+      img {
+        width: 24px !important;
+        height: 24px !important;
+      }
+    }
+  }
+
+}
+.w3a-adapter-list--shrink {
+  max-height: 70px !important;
+}
+
+.w3ajs-email-passwordless-form button, .w3a-external-toggle button {
+  background-color: $black !important;
+  margin-bottom: 10px I !important;
+  color: $white !important;
+  font-family: Totem !important;
+  text-transform: uppercase !important;
+  &:disabled {
+    background-color: $black !important;
+    color: $light-grey !important;
+  }
+}
+.w3a-modal__loader-app-logo {
+  height: 72px !important;
+  width: 72px !important;
+  // background-image: url('../../../assets/favicons/logo-192.png');
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+}
+.w3a-spinner-power {
+  display: none !important;
+}
+.w3a-modal__loader-content {
+  margin-bottom: 0px !important;
+}
+.w3a-modal__loader {
+  background-color: #142630 !important;
+}
+
+// .w3a-modal__connector-beat {
+//   div {
+//     background-color: $yellow !important;
+//   }
+// }
+
