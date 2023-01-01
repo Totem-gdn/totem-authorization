@@ -21,7 +21,10 @@ export class Web3AuthService {
           chainNamespace: CHAIN_NAMESPACES.EIP155,
           chainId: environment.BLOCKCHAIN_CONFIG.chainId,
           rpcTarget: environment.BLOCKCHAIN_CONFIG.rpcTarget
-        }
+        },
+        uiConfig: {
+          theme: 'dark'
+      }
       });
       const web3auth = this.web3auth;
       const openloginAdapter = new OpenloginAdapter({
