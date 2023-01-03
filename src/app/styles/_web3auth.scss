@@ -110,7 +110,17 @@
   border-bottom: 1px solid $light-grey !important;
     text-align: center !important;
 }
-
+.w3ajs-close-btn {
+  width: 15px !important;
+  height: 15px !important;
+  top: 1.75rem !important;
+  img {
+    display: none !important;
+  }
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-image: url('../../assets/images/svgs/close_btn.svg') !important;
+}
 .w3a-modal__footer {
   background-color: $white !important;
 
