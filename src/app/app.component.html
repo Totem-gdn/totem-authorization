@@ -3,12 +3,12 @@
     <img src="../assets/web3auth_icon.png" alt="web3auth">
   </div>
   <ng-container *ngIf="!loggedIn">
-    <div class="b-700 font-60 title mt-24">Welcome</div>
+    <div class="b-700 font-52 title mt-24">Welcome</div>
     <mat-spinner class="mt-24" [diameter]="40"></mat-spinner>
-    <div class="b-500 mt-16 font-14">Initializing Web3Auth, please wait</div>
+    <div class="b-500 mt-16 font-16">Initializing Web3Auth, please wait</div>
   </ng-container>
   <ng-container *ngIf="loggedIn">
-    <div class="b-700 font-60 title mt-24">Successfully logged in</div>
-    <div class="b-500 mt-20 font-14">Please wait while we redirect you</div>
+    <div class="b-700 font-52 title mt-24">Successfully logged in</div>
+    <div class="b-500 mt-20 font-16">You can return to your app now</div>
   </ng-container>
 </div>
