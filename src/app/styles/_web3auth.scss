@@ -97,8 +97,20 @@
   font-size: 20px !important;
   margin-bottom: 15px !important;
 }
+// .w3a-parent-container .dark #w3a-modal .w3a-modal__loader {
+//   background-color: $white !important;
+
+// }
+.w3a-modal__connector-beat {
+  div {
+    background-color: $white !important;
+  }
+}
+.w3a-modal__loader-app-logo, .w3a-modal__loader-social-logo {
+  display: none !important;
+}
 .w3a-modal__inner, .w3ajs-modal-loader {
-  overflow-y: scroll !important;
+  overflow-y: auto !important;
   border-radius: 4px !important;
   border: none !important;
   background-color: $white !important;

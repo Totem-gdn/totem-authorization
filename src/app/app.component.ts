@@ -3,6 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { BehaviorSubject } from "rxjs";
 import { AUTH_ENUM } from "./core/enums/auth.enum";
 import { OpenLoginUser } from "./core/models/open-login.interface";
+import { GameLegacyService } from "./core/services/game-legacy.service";
 import { Web3AuthService } from "./web3auth.service";
 
 @Component({
@@ -12,12 +13,14 @@ import { Web3AuthService } from "./web3auth.service";
 })
 export class AppComponent {
     redirectUrl: string = '';
+    gameId: string = '';
     loggedIn: boolean = false;
     loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     constructor(
       private route: ActivatedRoute,
       private web3auth: Web3AuthService,
+      private legacyService: GameLegacyService
       ) {}
 
     ngOnInit() {
@@ -25,6 +28,7 @@ export class AppComponent {
         console.log(params);
 
         this.redirectUrl = params[AUTH_ENUM.SUCCESS_URL];
+        this.gameId = params[AUTH_ENUM.GAME_ID];
       });
       this.initAccount();
     }
@@ -75,8 +79,15 @@ export class AppComponent {
         await this.login();
         return;
       } */
-      await this.web3auth.logout();
       localStorage.clear();
+
+      // Create game legacy
+      const wallet = await this.web3auth.getAccounts();
+      const tx = await this.legacyService.createRecord(this.gameId, wallet);
+      console.log('hash',tx)
+
+
+      await this.web3auth.logout();
       console.log(this.redirectUrl + `?${AUTH_ENUM.TOKEN}=${jwt}`);
       location.replace(this.redirectUrl + `?${AUTH_ENUM.TOKEN}=${jwt}`);
 
