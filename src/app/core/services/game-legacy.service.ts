@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
-import { firstValueFrom } from "rxjs";
+import { catchError, firstValueFrom, of, throwError } from "rxjs";
 
 @Injectable({ providedIn: 'root' })
 
@@ -22,6 +22,9 @@ export class GameLegacyService {
             'gameAddress': gameId,
             'data': data
         }
-        return firstValueFrom(this.http.post(`https://dev-api.totem.gdn/game-legacy`, body));
+        return firstValueFrom(this.http.post(`https://dev-api.totem.gdn/game-legacy`, body))
+            .catch(err => {
+                console.log(err)
+            });
     }
 }

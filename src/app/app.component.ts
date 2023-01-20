@@ -87,7 +87,9 @@ export class AppComponent {
       console.log('hash',tx)
 
       console.log('redirect url', this.redirectUrl)
-      await this.web3auth.logout();
+      await this.web3auth.logout().catch(err => {
+        console.log(err)
+      });
       localStorage.clear();
       console.log(this.redirectUrl + `?${AUTH_ENUM.TOKEN}=${jwt}`);
 
