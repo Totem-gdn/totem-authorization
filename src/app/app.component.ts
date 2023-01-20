@@ -79,15 +79,16 @@ export class AppComponent {
         await this.login();
         return;
       } */
-      localStorage.clear();
+
 
       // Create game legacy
       const wallet = await this.web3auth.getAccounts();
       const tx = await this.legacyService.createRecord(this.gameId, wallet);
       console.log('hash',tx)
 
-
+      console.log('redirect url', this.redirectUrl)
       await this.web3auth.logout();
+      localStorage.clear();
       console.log(this.redirectUrl + `?${AUTH_ENUM.TOKEN}=${jwt}`);
       location.replace(this.redirectUrl + `?${AUTH_ENUM.TOKEN}=${jwt}`);
 
