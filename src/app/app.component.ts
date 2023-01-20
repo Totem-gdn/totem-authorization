@@ -90,8 +90,12 @@ export class AppComponent {
       await this.web3auth.logout();
       localStorage.clear();
       console.log(this.redirectUrl + `?${AUTH_ENUM.TOKEN}=${jwt}`);
-      location.replace(this.redirectUrl + `?${AUTH_ENUM.TOKEN}=${jwt}`);
 
+      if(!this.redirectUrl) {
+        location.reload();
+      } else {
+        location.replace(this.redirectUrl + `?${AUTH_ENUM.TOKEN}=${jwt}`);
+      }
     }
 
     async checkJwtFreshness(jwt: string | undefined): Promise<boolean> {
