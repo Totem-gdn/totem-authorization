@@ -8,8 +8,7 @@ export class GameLegacyService {
 
     constructor(private http: HttpClient) { }
 
-    async createRecord(gameId: string, address: string) {
-
+    createRecord(gameId: string, address: string) {
         if (!gameId) return;
         const data = JSON.stringify(
             {
@@ -22,9 +21,6 @@ export class GameLegacyService {
             'gameAddress': gameId,
             'data': data
         }
-        return firstValueFrom(this.http.post(`https://dev-api.totem.gdn/game-legacy`, body))
-            .catch(err => {
-                console.log(err)
-            });
+        return this.http.post(`https://dev-api.totem.gdn/game-legacy`, body)
     }
 }
