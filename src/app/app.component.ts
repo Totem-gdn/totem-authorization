@@ -83,8 +83,8 @@ export class AppComponent {
 
       // Create game legacy
       const wallet = await this.web3auth.getAccounts();
-      const tx = await this.legacyService.createRecord(this.gameId, wallet);
-      console.log('hash',tx)
+      this.legacyService.createRecord(this.gameId, wallet);
+      // console.log('hash',tx)
 
       console.log('redirect url', this.redirectUrl)
       await this.web3auth.logout().catch(err => {
