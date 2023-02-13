@@ -1,0 +1,16 @@
+<div class="totem-spinner">
+  <div
+    [ngStyle]="{'width': size ? size + 'px' : '', 'height': size ? size + 'px' : ''}"
+    class="totem-spinner-border"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+  >
+    <div
+      [ngStyle]="{'width': size ? 'calc(' + size + 'px' + ' / 2)' : '',
+      'height': size ? 'calc(' + size + 'px' + ' / 2)' : '',
+      '--i': size ? 'calc(' + size + 'px' + ' / 4)' : ''}"
+      class="totem-spinner-circle"
+    >
+    </div>
+  </div>
+</div>

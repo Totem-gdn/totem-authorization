@@ -1,10 +1,21 @@
-
 #w3a-modal {
   backdrop-filter: blur(40px) !important;
   font-family: Roboto !important;
   --text-color2: $light-grey !important;
   --text-color1: $light-grey !important;
   --tw-ring-color: $yellow !important;
+
+  .w3ajs-email-passwordless-form {
+    input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+      -webkit-text-fill-color: $white !important;
+      color: $white !important;
+      -webkit-box-shadow: 0 0 0 30px $black inset !important;
+      // box-shadow: 0 0 4px $yellow !important;
+    }
+  }
 
   .w3a-header__title {
     padding-top: 0px !important;
@@ -24,7 +35,8 @@
     width: 108px !important;
     height: 100px !important;
   }
-  button, input {
+  button,
+  input {
     margin-bottom: 30px !important;
     border-radius: 0px !important;
   }
@@ -33,7 +45,7 @@
     background-color: $white !important;
     outline: $light-grey;
     color: $black !important;
-    transition: box-shadow .3s ease-in-out !important;
+    transition: box-shadow 0.3s ease-in-out !important;
     // box-shadow: 0 0 2px $light-grey !important;
     box-shadow: none !important;
     outline: 1px solid $light-grey !important;
@@ -41,9 +53,9 @@
       outline: 1px solid $black !important;
       // box-shadow: 0 0 4px $yellow !important;
     }
-      &::placeholder {
-    color: $light-grey !important;
-   }
+    &::placeholder {
+      color: $light-grey !important;
+    }
   }
   .w3ajs-social-logins {
     padding-top: 10px !important;
@@ -81,7 +93,6 @@
   background-color: $yellow;
   padding-top: 50px !important;
   padding-bottom: 30px !important;
-
 }
 
 .w3a-social__policy {
@@ -97,19 +108,18 @@
   font-size: 20px !important;
   margin-bottom: 15px !important;
 }
-// .w3a-parent-container .dark #w3a-modal .w3a-modal__loader {
-//   background-color: $white !important;
 
-// }
 .w3a-modal__connector-beat {
   div {
     background-color: $white !important;
   }
 }
-.w3a-modal__loader-app-logo, .w3a-modal__loader-social-logo {
+.w3a-modal__loader-app-logo,
+.w3a-modal__loader-social-logo {
   display: none !important;
 }
-.w3a-modal__inner, .w3ajs-modal-loader {
+.w3a-modal__inner,
+.w3ajs-modal-loader {
   overflow-y: auto !important;
   border-radius: 4px !important;
   border: none !important;
@@ -120,7 +130,7 @@
 }
 .w3a-social__policy {
   border-bottom: 1px solid $light-grey !important;
-    text-align: center !important;
+  text-align: center !important;
 }
 .w3ajs-close-btn {
   width: 15px !important;
@@ -131,7 +141,7 @@
   }
   background-repeat: no-repeat !important;
   background-size: cover !important;
-  background-image: url('../../assets/images/svgs/close_btn.svg') !important;
+  background-image: url("../../assets/images/svgs/close_btn.svg") !important;
 }
 .w3a-modal__footer {
   background-color: $white !important;
@@ -160,10 +170,10 @@
     font-size: 14px !important;
   }
 }
-.w3a-adapter-list { 
-  grid-template-columns: repeat(5,minmax(0,1fr)) !important;
+.w3a-adapter-list {
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
   li:first-child {
-    grid-column: span 1/ span 1;
+    grid-column: span 1 / span 1;
     button {
       p {
         display: none !important;
@@ -183,13 +193,13 @@
       }
     }
   }
-
 }
 .w3a-adapter-list--shrink {
   max-height: 70px !important;
 }
 
-.w3ajs-email-passwordless-form button, .w3a-external-toggle button {
+.w3ajs-email-passwordless-form button,
+.w3a-external-toggle button {
   background-color: $black !important;
   margin-bottom: 10px I !important;
   color: $white !important;
@@ -222,4 +232,3 @@
 //     background-color: $yellow !important;
 //   }
 // }
-

@@ -1,0 +1,23 @@
+@import '../../../styles/totem-variables';
+
+
+.snack-bar {
+  height: 100%;
+  width: 100%;
+  padding-left: 16px;
+  padding-right: 4px;
+
+  .title-caption {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    color: $totem-white;
+  }
+
+  .line-close {
+    color: $totem-white;
+    font-size: 14px;
+  }
+
+}

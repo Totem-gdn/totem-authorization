@@ -1,0 +1,10 @@
+<div class="snack-bar" fxLayout="row" fxLayoutAlign="space-between center">
+
+  <div *ngIf="data" class="title-caption">
+    {{data}}
+  </div>
+
+  <button mat-icon-button (click)="closeSnack()">
+      <div class="line-close"></div>
+  </button>
+</div>

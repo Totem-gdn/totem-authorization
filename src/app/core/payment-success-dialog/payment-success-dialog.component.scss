@@ -1,0 +1,44 @@
+@import '../../styles/totem-variables';
+
+
+.mtop-20px {
+  margin-top: 20px;
+  @media (max-height: 400px) {
+    margin-top: 8px;
+  }
+}
+.mtop-8px {
+  margin-top: 8px;
+  @media (max-height: 400px) {
+    margin-top: 4px;
+  }
+}
+.mtop-10px {
+  margin-top: 10px;
+  @media (max-height: 400px) {
+    margin-top: 6px;
+  }
+}
+
+mat-progress-bar {
+  color: $totem-pink;
+}
+
+.content {
+  // background: rgba(35, 37, 47, 0.8);
+  // backdrop-filter: blur(10px);
+}
+
+.circle-wrapper {
+position: absolute;
+top: 0;
+bottom: 0;
+left: 0;
+right: 0;
+}
+
+.totem-primary-button {
+  width: auto;
+  transition: width 0.33s ease-out;
+  white-space: nowrap;
+}

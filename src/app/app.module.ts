@@ -6,7 +6,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import {  MatSnackBarModule } from '@angular/material/snack-bar';
+import { WelcomeDialogModule } from './core/welcome-dialog/welcome-dialog.module';
+import { PaymentSuccessDialogModule } from './core/payment-success-dialog/payment-success-dialog.module';
+import { SnackNotifierModule } from './core/components/snack-bar-notifier/snack-bar-notifier.module';
+import { AuthInterceptor } from './core/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -18,9 +25,20 @@ import { HttpClientModule } from '@angular/common/http';
     FlexLayoutModule,
     BrowserAnimationsModule,
     MatProgressSpinnerModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDialogModule,
+    // MatSnackBarModule
+    WelcomeDialogModule,
+    PaymentSuccessDialogModule,
+    SnackNotifierModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

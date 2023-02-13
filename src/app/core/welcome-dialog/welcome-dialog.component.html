@@ -1,0 +1,87 @@
+<div class="welcome-dialog w-full h-full">
+  <div class="welcome-dialog-wrapper w-full h-full" fxLayout="column" fxLayoutAlign="stretch stretch">
+    <div (click)="close()" class="x-close-button flex-column cursor-pointer" fxLayoutAlign="center center">
+      <div class="line-close"></div>
+    </div>
+    <div fxHide.lt-sm class="img-side">
+      <img [ngStyle]="{'opacity': slideStep == 'first' ? '1' : '0'}" loading="lazy" src="assets/images/popup/gj-slide.webp" alt="filter-slide">
+      <img [ngStyle]="{'opacity': slideStep == 'second' ? '1' : '0'}" loading="lazy" src="assets/images/popup/filter-slide.webp" alt="game-slide">
+      <img [ngStyle]="{'opacity': slideStep == 'third' ? '1' : '0'}" loading="lazy" src="assets/images/popup/game-slide.webp" alt="purchase-slide">
+      <img [ngStyle]="{'opacity': slideStep == 'fourth' ? '1' : '0'}" loading="lazy" src="assets/images/popup/purchase-slide.webp" alt="gj-slide">
+    </div>
+    <div fxHide.gt-xs class="img-side">
+      <img [ngStyle]="{'opacity': slideStep == 'first' ? '1' : '0'}" loading="lazy" src="assets/images/popup/filter-slide-xs-v.webp" alt="filter-slide">
+      <img [ngStyle]="{'opacity': slideStep == 'second' ? '1' : '0'}" loading="lazy" src="assets/images/popup/game-slide-xs-v.webp" alt="game-slide">
+      <img [ngStyle]="{'opacity': slideStep == 'third' ? '1' : '0'}" loading="lazy" src="assets/images/popup/purchase-slide-xs-v.webp" alt="purchase-slide">
+      <img [ngStyle]="{'opacity': slideStep == 'fourth' ? '1' : '0'}" loading="lazy" src="assets/images/popup/gj-slide-xs-v.webp" alt="gj-slide">
+    </div>
+    <div class="content-side" fxLayout="column" fxLayoutAlign="space-between start">
+      <div class="content-side-block w-full">
+        <div class="fake-slider" fxLayout="row" fxLayoutAlign="start center">
+          <div class="fake-bullet" [ngClass]="{'active-bullet' : slideStep == 'first'}"></div>
+          <div class="fake-bullet ml-[16px]" [ngClass]="{'active-bullet' : slideStep == 'second'}"></div>
+          <div class="fake-bullet ml-[16px]" [ngClass]="{'active-bullet' : slideStep == 'third'}"></div>
+          <div class="fake-bullet ml-[16px]" [ngClass]="{'active-bullet' : slideStep == 'fourth'}"></div>
+        </div>
+        <div class="giveaway-pretitle">First time there?</div>
+        <div class="giveaway-title font-totem">Welcome to TOTEM</div>
+        <div class="giveaway-caption">{{(!tokensClaimed.MATIC && !tokensClaimed.USDC) ? 'We are sending you some funds so you can purchase your first game assets. This can take up to one minute' : 'You have successfully claimed the tokens. You can now generate your brand new Totem Asset!'}}.</div>
+      </div>
+
+      <div class="mascot-wrapper">
+        <div fxHide.lt-sm class="masks-block">
+          <img [ngStyle]="{'opacity': slideStep == 'first' ? '1' : '0'}" loading="lazy" src="assets/images/popup/dark-mask.webp" alt="filter-slide">
+          <img [ngStyle]="{'opacity': slideStep == 'second' ? '1' : '0'}" loading="lazy" src="assets/images/popup/red-mask.webp" alt="game-slide">
+          <img [ngStyle]="{'opacity': slideStep == 'third' ? '1' : '0'}" loading="lazy" src="assets/images/popup/purple-red-mask.webp" alt="purchase-slide">
+          <img [ngStyle]="{'opacity': slideStep == 'fourth' ? '1' : '0'}" loading="lazy" src="assets/images/popup/purple-light-mask.webp" alt="gj-slide">
+        </div>
+        <div fxHide.gt-xs class="masks-block">
+          <img [ngStyle]="{'opacity': slideStep == 'first' ? '1' : '0'}" loading="lazy" src="assets/images/popup/green-mask-xs.webp" alt="filter-slide">
+          <img [ngStyle]="{'opacity': slideStep == 'second' ? '1' : '0'}" loading="lazy" src="assets/images/popup/red-mask-xs.webp" alt="game-slide">
+          <img [ngStyle]="{'opacity': slideStep == 'third' ? '1' : '0'}" loading="lazy" src="assets/images/popup/purple-red-mask-xs.webp" alt="purchase-slide">
+          <img [ngStyle]="{'opacity': slideStep == 'fourth' ? '1' : '0'}" loading="lazy" src="assets/images/popup/purple-light-mask-xs.webp" alt="gj-slide">
+        </div>
+      </div>
+      <div class="image-shadow"></div>
+
+
+      <div class="content-block-body-progress w-full" fxLayout="column" fxLayoutAlign="center center">
+        <div class="content-block-body-progress-bar" fxLayout="row" fxLayoutAlign="space-between center">
+          <div class="circles-wrapper">
+            <totem-spinner *ngIf="!steps[1].step && steps[1].loading && !errorState" [size]="'14'"></totem-spinner>
+            <div @stopLoader *ngIf="!steps[1].loading" class="disabled-circle"
+              [ngStyle]="{'background-color': steps[1].step && !errorState ? '#ffd013' : stepIndex >= 1 && errorState ? '#FF5252' : ''}"></div>
+            <div class="solid-warning-icon warning-icon" @stopLoader *ngIf="errorState && stepIndex == 1"></div>
+          </div>
+          <mat-progress-bar [ngStyle]="{'color': stepIndex >= 1 && errorState ? '#FF5252' : ''}"
+            [ngClass]="{'allow-progress-color' : stepIndex >= 2}"
+            class="progress-bar mx-[5px]" mode="determinate" value="{{steps[1].step ? '100' : '0'}}">
+          </mat-progress-bar>
+          <div class="circles-wrapper">
+            <totem-spinner @stopLoader *ngIf="!steps[2].step && steps[2].loading && !errorState" [size]="'14'"></totem-spinner>
+            <div @stopLoader *ngIf="!steps[2].loading" class="disabled-circle"
+            [ngStyle]="{'background-color': steps[2].step && !errorState ? '#ffd013' : stepIndex >= 2 && errorState ? '#FF5252' : ''}"></div>
+            <div class="solid-warning-icon warning-icon" @stopLoader *ngIf="errorState && stepIndex == 2"></div>
+          </div>
+          <mat-progress-bar [ngStyle]="{'color': stepIndex >= 2 && errorState ? '#FF5252' : ''}"
+            [ngClass]="{'allow-progress-color' : stepIndex >= 2}"
+            class="progress-bar mx-[5px]" mode="determinate" value="{{steps[2].step ? '100' : '0'}}">
+          </mat-progress-bar>
+          <div class="circles-wrapper">
+            <totem-spinner @stopLoader *ngIf="!steps[3].step && steps[3].loading && !errorState" [size]="'14'"></totem-spinner>
+            <div @stopLoader *ngIf="!steps[3].loading" class="disabled-circle"
+            [ngStyle]="{'background-color': steps[3].step && !errorState ? '#ffd013' : stepIndex >= 3 && errorState ? '#FF5252' : ''}"></div>
+            <div class="solid-warning-icon warning-icon" @stopLoader *ngIf="errorState && stepIndex == 3"></div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="w-full" fxLayout="row" fxLayoutAlign="start center">
+
+        <totem-button (clicked)="close()" [disabled]="!tokensClaimed.MATIC && !tokensClaimed.USDC" class="w-[140px]" [width]="'100%'" [height]="'40px'"
+        [caption]="showCounter ? buttonCaption + ' (' + secondsToClose + ')' : buttonCaption"></totem-button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+@import '../../../styles/variables';
+
+
+.join-button {
+  border-radius: 4px !important;
+  background-color: $yellow;
+  color: #111;
+  width: 220px;
+  height: 50px;
+  border: 1px solid transparent;
+  transition: background-color 0.33s ease-out;
+  overflow: hidden;
+  z-index: 4;
+  box-shadow: none;
+  position: relative;
+  padding: 10px 0px;
+  &:hover {
+    @media (min-width: 999px) {
+      background-color: rgba(255, 255, 255, 0.15);
+    }
+    //background-color: $grey;
+    //color: #ffe167;
+  }
+  &:focus {
+    //background-color: $yellow;
+    border: 1px solid $yellow;
+  }
+  span.caption {
+    position: relative;
+    z-index: 1;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+  }
+  span.glow-opacity {
+    transition: transform 0.33s ease-out, opacity 0.33s ease-out;
+    height: 200px;
+    width: 140px;
+    background: radial-gradient(closest-side, lighten($yellow, 10%), transparent);
+    position: absolute;
+    border-radius: 80%;
+    transform: 0px 0px;
+    opacity: 0;
+    top: -74px;
+    left: -100px;
+    z-index: 0;
+    @media (max-width: 999px) {
+      display: none;
+    }
+  }
+  span.glow {
+    opacity: 1;
+  }
+
+  &:disabled {
+    background-color: $dark-grey;
+  }
+}

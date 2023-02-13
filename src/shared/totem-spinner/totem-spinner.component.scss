@@ -1,0 +1,32 @@
+@import '../../app/styles/variables';
+
+@import '../../app/styles/totem-variables';
+
+.totem-spinner {
+  width: 100%;
+  height: 100%;
+  &-border {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid $totem-white;
+    .totem-spinner-circle {
+      position: relative;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: $totem-white;
+      animation: spinAround 1s linear infinite;
+    }
+  }
+
+}
+@keyframes spinAround {
+  from {
+    transform: rotate(0deg) translate(var(--i));
+  }
+  to {
+    transform: rotate(360deg) translate(var(--i));
+  }
+}

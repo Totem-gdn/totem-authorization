@@ -1,0 +1,319 @@
+@import '../../styles/variables';
+
+.mtop-20px {
+  margin-top: 20px;
+  @media (max-height: 400px) {
+    margin-top: 8px;
+  }
+}
+.mtop-8px {
+  margin-top: 8px;
+  @media (max-height: 400px) {
+    margin-top: 4px;
+  }
+}
+.mtop-10px {
+  margin-top: 10px;
+  @media (max-height: 400px) {
+    margin-top: 6px;
+  }
+}
+
+.welcome-dialog {
+  position: relative;
+  background-color: $dark;
+  overflow: hidden;
+  &-wrapper {
+    position: relative;
+    flex-shrink: 0;
+    overflow: hidden;
+
+    .x-close-button {
+      z-index: 2;
+      width: 24px;
+      height: 24px;
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background: linear-gradient(35.18deg, #969595 -79.38%, rgba(85, 85, 85, 0) 140.53%);
+      backdrop-filter: blur(10px);
+      border-radius: 100px;
+      .line-close {
+        font-size: 10px;
+        color: #fff;
+        height: 10px;
+        width: 10px;
+      }
+    }
+
+    .img-side {
+      z-index: 1;
+      height: 100%;
+      max-height: 184px;
+      position: relative;
+      min-width: 512px;
+      width: 100%;
+      img {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        transition: opacity 0.4s ease-in-out;
+        will-change: opacity;
+      }
+
+    }
+    @media (max-width: 600px) {
+      .img-side {
+        min-width: 280px;
+      }
+    }
+    .content-side {
+      z-index: 3;
+      height: 100%;
+      padding: 32px 20px 32px 32px;
+      box-shadow: 0px -15px 30px rgba(0, 0, 0, 0.25);
+      position: relative;
+
+      &-block {
+        position: relative;
+        z-index: 3;
+      }
+
+      .fake-slider {
+        .fake-bullet {
+          height: 16px;
+          width: 16px;
+          background-color: $dark-grey;
+          border-radius: 50%;
+          transition: background-color 0.4s ease-in-out;
+        }
+        .active-bullet {
+          background-color: $yellow;
+        }
+      }
+
+      .giveaway-pretitle {
+        margin-top: 32px;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+        text-transform: uppercase;
+        color: $light-grey;
+      }
+      .giveaway-title {
+        margin-top: 16px;
+        font-weight: 400;
+        font-size: 36px;
+        line-height: 36px;
+        text-transform: uppercase;
+        color: #FFFFFF;
+      }
+      .giveaway-caption {
+        margin-top: 8px;
+        max-width: 390px;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+        color: $light-grey;
+      }
+
+      .mascot-wrapper {
+        z-index: 1;
+        position: absolute;
+        right: 0px;
+        bottom: 138px;
+        width: 276px;
+        height: 237px;
+        .masks-block {
+          z-index: 1;
+          height: 100%;
+          position: relative;
+          width: 100%;
+          img {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            height: auto;
+            width: 100%;
+            transition: opacity 0.4s ease-in-out;
+            will-change: opacity;
+          }
+        }
+
+      }
+      .image-shadow {
+        z-index: 2;
+        position: absolute;
+        width: 363.67px;
+        height: 330.12px;
+        right: -60.96px;
+        bottom: 10.09px;
+        background: linear-gradient(23.43deg, #202225 43.47%, rgba(32, 34, 37, 0.92) 50.21%, rgba(32, 34, 37, 0.32) 63.88%, rgba(32, 34, 37, 0) 69.53%);
+        transform: rotate(-22.74deg);
+      }
+
+      .close-button {
+        z-index: 3;
+        display: flex;
+        align-items: center;
+        place-content: center center;
+        height: 40px;
+        width: 124px;
+        background-color: $dark-grey;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 19px;
+        color: #fff;
+        border-radius: 4px;
+        transition: background-color 0.33s;
+        margin-right: 24px;
+        &:hover {
+          background-color: $grey;
+        }
+      }
+
+      .accept-button {
+        width: 200px;
+      }
+
+      @media (max-width: 600px) {
+        .mascot-wrapper {
+          bottom: 174px;
+          width: 159px;
+          height: 172px;
+        }
+        .image-shadow {
+          bottom: -10px;
+        }
+      }
+
+      @media (max-width: 570px) {
+        .giveaway-title {
+          font-size: 28px;
+          line-height: 28px;
+        }
+      }
+
+      @media (max-width: 475px) {
+        padding: 24px 16px 24px 16px;
+        .giveaway-pretitle {
+          font-size: 14px;
+          line-height: 16px;
+        }
+        .giveaway-title {
+          font-size: 20px;
+          line-height: 20px;
+        }
+        .giveaway-caption {
+          font-size: 14px;
+          line-height: 16px;
+        }
+        .close-button {
+          width: 96px;
+          margin-right: 16px;
+        }
+        .accept-button {
+          width: 136px;
+        }
+        .mascot-wrapper {
+          //bottom: 118px;
+          //right: -126px;
+        }
+      }
+
+    }
+
+  }
+}
+
+.content-block-body-progress {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  //max-width: 630px;
+  width: 100%;
+  flex-shrink: 0;
+  z-index: 4;
+
+  &-bar {
+    max-width: 548px;
+    width: 100%;
+    //padding: 0px 60px;
+    @media (max-width: 600px) {
+      padding: 0px 24px;
+    }
+    .progress-bar {
+      max-width: 199px;
+      width: 100%;
+      color: $dark-grey;
+      transition: color 0.3s ease-out;
+    }
+    .allow-progress-color {
+      color: $yellow;
+    }
+
+    .circles-wrapper {
+      position: relative;
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+
+      .totem-spinner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+      }
+
+      .warning-icon {
+        color: #FF5252;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 14px;
+        height: 14px;
+      }
+
+      .disabled-circle {
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-radius: 50%;
+        width: 14px;
+        height: 14px;
+        background-color: $dark-grey;
+        flex-shrink: 0;
+        transition: background-color 0.33s ease-out;
+      }
+    }
+  }
+
+  .caption-block {
+    width: 100%;
+    @media (max-width: 800px) {
+      width: 99%;
+      .caption-section {
+        width: 33%;
+      }
+    }
+    .caption-section {
+      width: 33.3%;
+      text-align: center;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 16px;
+      color: #FFFFFF;
+      transition: color 0.33s ease-out;
+      @media (max-height: 400px) {
+        font-size: 13px;
+        line-height: 15px;
+      }
+    }
+  }
+
+}
