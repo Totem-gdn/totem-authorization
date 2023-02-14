@@ -54,18 +54,19 @@ export class AppComponent implements OnDestroy {
     if (!this.web3auth.isLoggedIn()) {
       await this.web3auth.login();
     }
-    console.log('continue login')
-    const jwt = await this.getJwt();
-    if(jwt) this.localStorage.setItem(StorageKey.JWT, jwt);
-    const requiredAssets = await this.assetsService.isUserOwnsAssets();
-    console.log('requiredAssets', requiredAssets)
-    if(requiredAssets && requiredAssets.length > 0) {
 
-      this.paymentService.openPaymentSuccessDialog(requiredAssets).subscribe(res => {
+    const jwt = await this.getJwt();
+
+    if(jwt) this.localStorage.setItem(StorageKey.JWT, jwt);
+
+    const missingAssets: string[] | null = await this.assetsService.missingAssets();
+
+    if(missingAssets) {
+      console.log('missing assets', missingAssets)
+      this.paymentService.openPaymentSuccessDialog(missingAssets).subscribe(res => {
         this.handleJwt(jwt);
         this.loading$.next(false);
       });
-      // this.paymentService.openPaymentSuccessDialog(['item', 'avatar']);
 
     } else {
       this.handleJwt(jwt);

@@ -26,6 +26,9 @@ export class PaymentSuccessDialogComponent {
   counterSub: Subscription = new Subscription();
   txFinished: null | 'success' | 'error' = null;
 
+  value = 0;
+  interval?: any;
+
   constructor(
     public dialogRef: MatDialogRef<PaymentSuccessDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { requiredAssets: string[] },
@@ -40,42 +43,59 @@ export class PaymentSuccessDialogComponent {
 
   async ngOnInit() {
     const wallet = await this.web3.getAccounts();
-    const subsArray: Observable<any>[] = [];
-    for (let asset of this.requiredAssets) {
 
-
+    if(this.requiredAssets[1]) {
+      this.progress(70)
+    } else {
+      this.progress(90, 3, 7)
     }
 
     this.assetsService.claimAssets(this.requiredAssets[0], wallet).subscribe(tx1 => {
-      if (this.requiredAssets[1]) {
-        console.log('tx1', tx1)
-        this.assetsService.claimAssets(this.requiredAssets[1], wallet).subscribe(tx2 => {
-          this.listenToTx([tx1, tx2])
-          console.log('tx2', tx2)
 
+      if (this.requiredAssets[1]) {
+        this.value = 70;
+        this.progress(90)
+
+        this.assetsService.claimAssets(this.requiredAssets[1], wallet).subscribe(tx2 => {
+
+          this.value = 100;
+          setTimeout(() => {
+            this.dialogRef.close();
+          }, 400)
         })
+
       } else {
-        this.listenToTx([tx1])
+        this.value = 100;
+        setTimeout(() => {
+          this.dialogRef.close();
+        }, 400)
       }
     })
-    // forkJoin(subsArray).subscribe((res: any) => {
-    //   // this.getUserAndListenAssetTx();
-    // })
 
 
   }
 
-  async listenToTx(txArr: string[]) {
-    this.dialogRef.close(true);
-    const wallet = await this.web3.getAccounts();
-    this.assetsListenerService.listenTx(wallet, 'item').then(res => {
-      console.log('item success', res)
-    });
-    this.assetsListenerService.listenTx(wallet, 'avatar').then(res => {
-      console.log('avatar success', res)
+  progress(maxValue: number, min = 1, max = 4) {
+    clearInterval(this.interval);
+    this.interval = setInterval(() => {
 
-    });
+      if (this.value >= maxValue) return;
+      this.value += Math.floor(Math.random() * (min - max) + max) / 10;
+
+    }, 100)
   }
+
+  // async listenToTx(txArr: string[]) {
+  //   this.dialogRef.close(true);
+  //   // const wallet = await this.web3.getAccounts();
+  //   // this.assetsService.listenTx(wallet, 'item').then(res => {
+
+  //   // });
+  //   // this.assetsService.listenTx(wallet, 'avatar').then(res => {
+
+
+  //   // });
+  // }
 
   getUserAndListenAssetTx() {
     this.assetsListenerService.assetTxState.subscribe((state: string | null) => {
@@ -89,12 +109,6 @@ export class PaymentSuccessDialogComponent {
       }
     })
     this.startCounter();
-    // this.userStateService.currentUser.subscribe((user: UserEntity | null) => {
-    //   if (user) {
-    //     this.assetsListenerService.listenTx(user.wallet!, this.asset);
-
-    //   }
-    // })
   }
 
   startCounter() {

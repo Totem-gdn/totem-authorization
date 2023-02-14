@@ -1,5 +1,4 @@
-@import '../../styles/totem-variables';
-
+@import "../../styles/totem-variables";
 
 .mtop-20px {
   margin-top: 20px;
@@ -28,17 +27,56 @@ mat-progress-bar {
   // background: rgba(35, 37, 47, 0.8);
   // backdrop-filter: blur(10px);
 }
+.asset-progress {
+  display: flex;
+  align-items: center;
+
+  p {
+    text-transform: capitalize;
+    margin-top: auto !important;
+    margin-bottom: auto !important;
+    width: 50px;
+  }
+  mat-progress-bar {
+    width: 30px;
+  }
+  mat-icon {
+    color: green;
+    width: 20p !important;
+    height: 20px !important;
+    font-size: 20px !important;
+    width: 30px !important;
+  }
+}
+
+.purchase {
+  background-color: #1d1f27;
+}
 
 .circle-wrapper {
-position: absolute;
-top: 0;
-bottom: 0;
-left: 0;
-right: 0;
+  bg-circle {
+    // backdrop-filter: blur(60px);
+    -moz-filter: blur(60px);
+    -o-filter: blur(60px);
+    -webkit-filter: blur(60px);
+  }
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .totem-primary-button {
   width: auto;
   transition: width 0.33s ease-out;
   white-space: nowrap;
+}
+
+
+.content {
+  background: rgba(35, 37, 47, 0.8);
+  // -moz-filter: blur(10px);
+  // -o-filter: blur(10px);
+  // -webkit-filter: blur(10px);
 }

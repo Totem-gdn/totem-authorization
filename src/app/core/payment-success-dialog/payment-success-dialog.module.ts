@@ -27,6 +27,8 @@ import { PaymentSuccessDialogComponent } from "./payment-success-dialog.componen
       MatRippleModule,
       TotemButtonModule,
       BackgroundCircleModule,
+
+      MatIconModule
   ],
   exports: [
     PaymentSuccessDialogComponent

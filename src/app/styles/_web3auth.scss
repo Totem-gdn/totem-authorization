@@ -111,7 +111,7 @@
 
 .w3a-modal__connector-beat {
   div {
-    background-color: $white !important;
+    background-color: $light-grey !important;
   }
 }
 .w3a-modal__loader-app-logo,
@@ -224,9 +224,11 @@
   margin-bottom: 0px !important;
 }
 .w3a-modal__loader {
-  background-color: #142630 !important;
+  // background-color: #142630 !important;
 }
-
+.w3a-modal__loader-bridge-message, .w3a-modal__loader-bridge-message {
+  color: $light-grey !important;
+}
 // .w3a-modal__connector-beat {
 //   div {
 //     background-color: $yellow !important;

@@ -10,8 +10,11 @@ const CommonFiles = require('totem-common-files');
 
 export class AssetsService {
 
-    constructor(private web3Service: Web3AuthService,
-                private http: HttpClient) { }
+    constructor(
+        private http: HttpClient,
+        private web3Auth: Web3AuthService) { }
+
+    private web3 = new Web3('wss://polygon-mumbai.g.alchemy.com/v2/pN97VGYBgynfw0vHtCfKpqyA1nkvxkbx');
 
     claimAssets(assetType: string, wallet: string) {
         // const wallet = await this.web3Service.getAccounts();
@@ -23,12 +26,12 @@ export class AssetsService {
         return this.http.post<string>(`${environment.TOTEM_API_GDN_URL}/assets/${assetType}/claim`, body)
     }
 
-    async isUserOwnsAssets() {
-        const web3 = new Web3(this.web3Service.provider as any);
-        const wallet = await this.web3Service.getAccounts();
+    async missingAssets() {
+        const web3 = new Web3(this.web3Auth.provider as any);
+        const wallet = await this.web3Auth.getAccounts();
         const ABI = CommonFiles.totem_asset_abi;
 
-        const addresses = ['0xfC5654489b23379ebE98BaF37ae7017130B45086', '0xEE7ff88E92F2207dBC19d89C1C9eD3F385513b35']
+        const addresses = [environment.ITEM_ETH_ADDRESS, environment.AVATAR_ETH_ADDRESS]
 
         const promiseArray = [];
         for (let address of addresses) {
@@ -37,19 +40,55 @@ export class AssetsService {
         }
 
         const assetsArray = await Promise.all(promiseArray);
-        console.log('array', assetsArray)
-        let owns: string[] = [];
 
-        if(assetsArray[0] == 0) {
-            owns.push('item');
+        let missingAssets: string[] = [];
+
+        if (assetsArray[0] == 0) {
+            missingAssets.push('item');
         }
-        if(assetsArray[1] == 0) {
-            owns.push('avatar');
+        if (assetsArray[1] == 0) {
+            missingAssets.push('avatar');
         }
-        if(assetsArray[0] == 0 || assetsArray[1] == 0) {
-            return owns;
+        if (missingAssets.length > 0) {
+            return missingAssets;
         } else {
             return null;
         }
     }
+
+    // async listenTx(wallet: string, type: string) {
+
+    //     const web3 = this.web3;
+    //     const blockNumber = await web3.eth.getBlockNumber();
+
+    //     const assetContract = CommonFiles.totem_asset_abi;
+    //     const contractAddress = type === 'item' ? environment.ITEM_ETH_ADDRESS : environment.AVATAR_ETH_ADDRESS;
+    //     const contract = new web3.eth.Contract(assetContract, contractAddress);
+    //     const signature = web3.utils.sha3('Transfer(address,address,uint256)');
+
+    //     web3.eth.subscribe('logs', {
+    //         address: contractAddress,
+            
+    //         // topics: [signature]
+    //     }, (event, err) => {
+
+    //     }).on("connected", function(subscriptionId){
+
+    //     }).on('data', (log: any) => {
+
+    //     })
+
+    //     contract.events.Transfer(
+    //         { getPastEvents: (blockNumber - 100), toBlock: 'latest', filter: { to: address } },
+    //         (error: any, event: any) => { })
+    //         .on("connected", (subscriptionId: any) => {
+    //         })
+    //         .on('data', (event: any) => {
+    //             if (!event) return;
+
+    //         })
+    //         .on('error', (error: any, receipt: any) => {
+    //             //   this.assetTxState.next('error');
+    //         });
+    // }
 }

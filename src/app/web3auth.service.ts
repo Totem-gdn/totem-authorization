@@ -41,6 +41,7 @@ export class Web3AuthService {
         this.provider = web3auth.provider;
       }
       this.isModalLoaded = true;
+      console.log('INIT')
     }
 
     isLoggedIn(): boolean {
@@ -64,6 +65,8 @@ export class Web3AuthService {
       }
       const web3auth = this.web3auth;
       this.provider = await web3auth.connect();
+      console.log('LLGIN')
+
     };
 
     getUserInfo = async () => {

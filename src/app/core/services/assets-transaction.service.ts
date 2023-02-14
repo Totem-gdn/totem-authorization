@@ -54,7 +54,7 @@ export class AssetsListenerService {
           .on('data', (event: any) => {
               if (!event) return;
               if(this.processEvent(event, type) == true) {
-                console.log('event', event)
+
                 resolve(true);
               }
           })
