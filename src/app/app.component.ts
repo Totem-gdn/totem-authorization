@@ -64,6 +64,8 @@ export class AppComponent implements OnDestroy {
 
     const missingAssets: string[] | null = await this.assetsService.missingAssets();
 
+    // this.paymentService.openPaymentSuccessDialog(['item']).subscribe()
+
     if(missingAssets) {
       console.log('missing assets', missingAssets)
       this.paymentService.openPaymentSuccessDialog(missingAssets).subscribe(res => {
