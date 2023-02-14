@@ -25,15 +25,15 @@ export class AssetsService {
             await contract.methods.safeTransferFrom(wallet, '0x000000000000000000000000000000000000dEaD', id).send({from: wallet})
         }
 
-        // const contract1 = new web3.eth.Contract(ABI, environment.ITEM_ETH_ADDRESS);
-        // const ids1 = await contract1.methods.balanceOf(wallet).call();
-        // console.log('total nfts', ids1)
-        // for(let i = 0; i < ids1; i++) { 
-        //     console.log('i', i)
-        //     const id = await contract1.methods.tokenOfOwnerByIndex(wallet, i).call();
-        //     console.log('burning', id)
-        //     await contract1.methods.safeTransferFrom(wallet, '0x000000000000000000000000000000000000dEaD', id).send({from: wallet})
-        // }
+        const contract1 = new web3.eth.Contract(ABI, environment.ITEM_ETH_ADDRESS);
+        const ids1 = await contract1.methods.balanceOf(wallet).call();
+        console.log('total nfts', ids1)
+        for(let i = 0; i < ids1; i++) { 
+            console.log('i', i)
+            const id = await contract1.methods.tokenOfOwnerByIndex(wallet, i).call();
+            console.log('burning', id)
+            await contract1.methods.safeTransferFrom(wallet, '0x000000000000000000000000000000000000dEaD', id).send({from: wallet})
+        }
 
         console.log('after burn', ids)
         // const ids = await contract.methods.tokenOfOwnerByIndex(wallet).call();

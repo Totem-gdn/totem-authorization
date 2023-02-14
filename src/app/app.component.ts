@@ -59,6 +59,7 @@ export class AppComponent implements OnDestroy {
 
     if(jwt) this.localStorage.setItem(StorageKey.JWT, jwt);
 
+    // Burn owned assets
     // await this.assetsService.burn();
 
     const missingAssets: string[] | null = await this.assetsService.missingAssets();
