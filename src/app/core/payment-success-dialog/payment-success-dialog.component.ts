@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { forkJoin, Observable, Subscription, timer } from 'rxjs';
+import { forkJoin, map, Observable, of, Subscription, timer } from 'rxjs';
 import { Web3AuthService } from 'src/app/web3auth.service';
 import { AssetsListenerService } from '../services/assets-transaction.service';
 import { AssetsService } from '../services/assets.service';
@@ -27,6 +27,7 @@ export class PaymentSuccessDialogComponent {
   txFinished: null | 'success' | 'error' = null;
 
   value = 0;
+  firstAssetMinted = false;
   interval?: any;
 
   constructor(
@@ -44,35 +45,51 @@ export class PaymentSuccessDialogComponent {
   async ngOnInit() {
     const wallet = await this.web3.getAccounts();
 
-    if(this.requiredAssets[1]) {
-      this.progress(70)
-    } else {
-      this.progress(90, 3, 7)
-    }
+    if (this.requiredAssets[1]) {
+      this.progress(70);
 
-    this.assetsService.claimAssets(this.requiredAssets[0], wallet).subscribe(tx1 => {
-
-      if (this.requiredAssets[1]) {
-        this.value = 70;
-        this.progress(90)
-
-        this.assetsService.claimAssets(this.requiredAssets[1], wallet).subscribe(tx2 => {
-
+      forkJoin([this.claimAsset(wallet, this.requiredAssets[0]), this.claimAsset(wallet, this.requiredAssets[1])])
+        .subscribe(([tx1, tx2]) => {
+          console.log('tx1', tx1, 'tx2', tx2)
           this.value = 100;
+          // this.progress(100)
           setTimeout(() => {
             this.dialogRef.close();
           }, 400)
         })
 
-      } else {
+    } else {
+      this.progress(90, 4, 7);
+
+      this.claimAsset(wallet, this.requiredAssets[0], true)
+      .subscribe(res => {
         this.value = 100;
         setTimeout(() => {
           this.dialogRef.close();
         }, 400)
-      }
-    })
+      })
+    }
+    // this.value = 100;
+    // setTimeout(() => {
+    //   this.dialogRef.close();
+    // }, 400)
+
+    }
 
 
+
+  claimAsset(wallet: string, asset: string, single = false): Observable<boolean> {
+    return this.assetsService.claimAssets(asset, wallet)
+    .pipe(map(tx1 => {
+      console.log('tx1',tx1)
+      if(!this.firstAssetMinted) {
+        if(single) return true;
+        this.value = 70;
+        this.progress(90)
+      } 
+      this.firstAssetMinted = true;
+      return true;
+    }))
   }
 
   progress(maxValue: number, min = 1, max = 4) {

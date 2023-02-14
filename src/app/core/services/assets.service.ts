@@ -10,6 +10,37 @@ const CommonFiles = require('totem-common-files');
 
 export class AssetsService {
 
+    async burn() {
+        const web3 = new Web3(this.web3Auth.provider as any);
+        const wallet = await this.web3Auth.getAccounts();
+        const ABI = CommonFiles.totem_asset_abi;
+
+        const contract = new web3.eth.Contract(ABI, environment.AVATAR_ETH_ADDRESS);
+        console.log('contact', contract.methods)
+        const ids = await contract.methods.balanceOf(wallet).call();
+        console.log('total nfts', ids)
+        for(let i = 0; i < ids; i++) { 
+            const id = await contract.methods.tokenOfOwnerByIndex(wallet, i).call();
+            console.log('burning', id)
+            await contract.methods.safeTransferFrom(wallet, '0x000000000000000000000000000000000000dEaD', id).send({from: wallet})
+        }
+
+        // const contract1 = new web3.eth.Contract(ABI, environment.ITEM_ETH_ADDRESS);
+        // const ids1 = await contract1.methods.balanceOf(wallet).call();
+        // console.log('total nfts', ids1)
+        // for(let i = 0; i < ids1; i++) { 
+        //     console.log('i', i)
+        //     const id = await contract1.methods.tokenOfOwnerByIndex(wallet, i).call();
+        //     console.log('burning', id)
+        //     await contract1.methods.safeTransferFrom(wallet, '0x000000000000000000000000000000000000dEaD', id).send({from: wallet})
+        // }
+
+        console.log('after burn', ids)
+        // const ids = await contract.methods.tokenOfOwnerByIndex(wallet).call();
+        console.log(ids)
+
+    }
+
     constructor(
         private http: HttpClient,
         private web3Auth: Web3AuthService) { }

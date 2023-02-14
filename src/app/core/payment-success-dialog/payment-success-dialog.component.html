@@ -6,8 +6,8 @@
       <bg-circle class="bottom-[9%] left-[24%] z-2" [background]="'#FF8540'" [width]="'284px'"></bg-circle>
   </div>
   <div class="content w-full flex flex-col items-center justify-start max-h-[358px] h-full rounded z-2 pb-16">
-      <h3 class="font-semibold text-[36px] leading-[52px] max-w-[520px] w-full text-white text-center mt-[62px]">Generating asset!</h3>
-      <p class="text-light-grey text-[18px] leading-[22px] text-center max-w-[536px] w-full mt-6">Please wait while we are processing your payment and generating your new unique {{assetName}}. This may take several seconds.</p>
+      <h3 class="font-semibold text-[36px] leading-[52px] max-w-[520px] w-full text-white text-center mt-[62px]">Generating assets!</h3>
+      <p class="text-light-grey text-[18px] leading-[22px] text-center max-w-[536px] w-full mt-6">Please wait while we are processing your payment and generating your new unique assets. This may take several seconds.</p>
       <div class="w-full flex flex-col items-center justify-center mt-7">
         <p [@swapText] *ngIf="txFinished == 'error'" class="t-col-error text-[20px] leading-[22px] text-center max-w-[496px] w-full h-[0px]">Error occured while generating your asset</p>
         <div *ngIf="!txFinished" class="px-6 w-full h-[10]">
