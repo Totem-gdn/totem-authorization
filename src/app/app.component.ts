@@ -1,6 +1,7 @@
 import { Component, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { BehaviorSubject } from "rxjs";
+import { ADAPTER_EVENTS } from "@web3auth/base";
+import { BehaviorSubject, fromEvent, interval } from "rxjs";
 import { AUTH_ENUM } from "./core/enums/auth.enum";
 import { OpenLoginUser } from "./core/models/open-login.interface";
 import { PaymentSuccessDialogService } from "./core/payment-success-dialog/services/payment-success-dialog.service";
@@ -38,33 +39,52 @@ export class AppComponent implements OnDestroy {
     private localStorage: BaseStorageService
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.route.queryParams.subscribe(params => {
 
       this.redirectUrl = params[AUTH_ENUM.SUCCESS_URL];
       this.gameId = params[AUTH_ENUM.GAME_ID];
     });
+
     this.login();
+    this.events$();
     // this.initAccount();
   }
 
   async login() {
-    this.loading$.next(true);
+    console.log('login')
     await this.web3auth.init();
+    await this.web3auth.login();
+    this.loading$.next(true);
     if (!this.web3auth.isLoggedIn()) {
-      await this.web3auth.login();
+      
     }
+  }
 
+  events$() {
+    this.web3auth.web3auth?.on(ADAPTER_EVENTS.ERRORED, () => {
+
+      this.web3auth.login();
+    });
+    this.web3auth.web3auth?.on(ADAPTER_EVENTS.CONNECTED, () => {
+
+      setTimeout(() => {
+        this.processLogin();
+      }, 100)
+    });
+  }
+  // web3Modal$() {
+  //   this.web3auth.web3.
+  // }
+
+  async processLogin() {
+    // await this.assetsService.burn();
+    // return;
     const jwt = await this.getJwt();
 
     if(jwt) this.localStorage.setItem(StorageKey.JWT, jwt);
 
-    // Burn owned assets
-    // await this.assetsService.burn();
-
     const missingAssets: string[] | null = await this.assetsService.missingAssets();
-
-    // this.paymentService.openPaymentSuccessDialog(['item']).subscribe()
 
     if(missingAssets) {
       console.log('missing assets', missingAssets)
@@ -77,8 +97,6 @@ export class AppComponent implements OnDestroy {
       this.handleJwt(jwt);
       this.loading$.next(false);
     }
-
-
   }
 
   async handleJwt(jwt?: string) {

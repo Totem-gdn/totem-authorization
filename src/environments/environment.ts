@@ -16,7 +16,7 @@ export const environment = {
   ASSET_RENDERER_URL: 'https://asset-renderer.totem-explorer.com',
   TRACKING_G_ID: 'G-PSFZKHJ6KR',
   TOTEM_WEB_EXPLORER_URL: 'https://demo.totem-explorer.com',
-  TOTEM_API_GDN_URL: 'https://dev-api.totem.gdn',
+  TOTEM_API_GDN_URL: 'https://api.totem.gdn',
 
   ITEM_ETH_ADDRESS: '0xfC5654489b23379ebE98BaF37ae7017130B45086',
   AVATAR_ETH_ADDRESS: '0xEE7ff88E92F2207dBC19d89C1C9eD3F385513b35',
