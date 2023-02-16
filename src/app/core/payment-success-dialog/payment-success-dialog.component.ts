@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { forkJoin, map, Observable, of, Subscription, timer } from 'rxjs';
 import { Web3AuthService } from 'src/app/web3auth.service';
@@ -26,7 +26,16 @@ export class PaymentSuccessDialogComponent {
   counterSub: Subscription = new Subscription();
   txFinished: null | 'success' | 'error' = null;
 
-  value = 0;
+  @ViewChild('square') square!: ElementRef;
+
+  set value(value: number) {
+    console.log(value)
+    this.square.nativeElement.style.left = `${value}%`
+    this._value = value;
+  };
+  get value() { return this._value; }
+  _value = 0;
+
   firstAssetMinted = false;
   interval?: any;
 
@@ -52,12 +61,13 @@ export class PaymentSuccessDialogComponent {
     }
 
     this.assetsService.claimAssets(this.requiredAssets[0], wallet).subscribe(tx1 => {
-
+      console.log(tx1)
       if (this.requiredAssets[1]) {
         this.value = 70;
         this.progress(90)
 
         this.assetsService.claimAssets(this.requiredAssets[1], wallet).subscribe(tx2 => {
+        console.log(tx2)
 
           this.value = 100;
           setTimeout(() => {
@@ -73,6 +83,7 @@ export class PaymentSuccessDialogComponent {
       }
     })
 
+    //////
     // if (this.requiredAssets[1]) {
     //   this.progress(70);
 
@@ -120,7 +131,11 @@ export class PaymentSuccessDialogComponent {
     clearInterval(this.interval);
     this.interval = setInterval(() => {
 
-      if (this.value >= maxValue) return;
+      if (this._value >= maxValue) return;
+      if(Math.floor(Math.random() * (min - max) + max) / 10 > 100) {
+        this.value = 100;
+        return;
+      }
       this.value += Math.floor(Math.random() * (min - max) + max) / 10;
 
     }, 100)

@@ -48,6 +48,11 @@ export class AppComponent implements OnDestroy {
 
     this.login();
     this.events$();
+
+    // this.paymentService.openPaymentSuccessDialog(['asset', 'avatar']).subscribe(res => {
+    //   // this.handleJwt(jwt);
+    //   // this.loading$.next(false);
+    // });
     // this.initAccount();
   }
 

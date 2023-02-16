@@ -1,5 +1,22 @@
 @import "../../styles/totem-variables";
+@import '../../styles/variables';
 
+.wrapper {
+  max-width: 600px;
+  padding: 30px;
+  background-color: white;
+  border-radius: 0 !important;
+  position: relative;
+
+  .yellow-container {
+    position: absolute;
+    height: 40%;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: $yellow;
+  }
+}
 .mtop-20px {
   margin-top: 20px;
   @media (max-height: 400px) {
@@ -24,8 +41,12 @@ mat-progress-bar {
 }
 
 .content {
+  padding: 60px 40px;
   // background: rgba(35, 37, 47, 0.8);
   // backdrop-filter: blur(10px);
+  @media screen and (max-width: 600px) {
+    padding: 25px 18px;
+  }
 }
 .asset-progress {
   display: flex;
@@ -50,7 +71,56 @@ mat-progress-bar {
 }
 
 .purchase {
-  background-color: #1d1f27;
+  background-color: #ECF4FF;;
+  border: 1px solid $light-grey;
+  position: relative;
+  z-index:1;
+}
+
+.title {
+  font-size: 36px;
+  color: $black !important;
+  @media screen and (max-width: 600px) {
+    font-size: 18px;
+    line-height: inherit;
+  }
+}
+
+.sub-title {
+  font-size: 16px;
+  color: $light-grey !important;
+  
+}
+
+.slider-container {
+  margin-top: 40px;
+
+  @media screen and (max-width: 600px) {
+    margin-top: 18px;
+  }
+}
+.slider-wrapper {
+  .black-square {
+    background-color: $black;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%) translateX(50%);
+  }
+}
+.square {
+  z-index: 5;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background-color: $yellow;
+  left: 0;
+  top: 50%;
+  transition: left .3s;
+  // width:100%;
+  transform: translateY(-50%) translateX(-50%);
 }
 
 .circle-wrapper {
@@ -75,7 +145,8 @@ mat-progress-bar {
 
 
 .content {
-  background: rgba(35, 37, 47, 0.8);
+  // background: rgba(35, 37, 47, 0.8) !important;
+  border-radius: 0 !important;
   // -moz-filter: blur(10px);
   // -o-filter: blur(10px);
   // -webkit-filter: blur(10px);
