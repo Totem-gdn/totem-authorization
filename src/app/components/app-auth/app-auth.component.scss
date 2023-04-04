@@ -1,0 +1,17 @@
+.img-wrapper {
+  height: 160px;
+  width: 160px;
+  border-radius: 50%;
+  background-color: #ebedf0;
+  img {
+    height: auto;
+    width: 76%;
+    padding-top: 6%;
+  }
+}
+
+.title {
+  background: linear-gradient(90deg, #13A5D3 0%, #1B6BEC 32.29%, #9824CF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
