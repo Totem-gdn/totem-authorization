@@ -1,14 +1,1 @@
-<div class="h-full w-full" fxLayout="column" fxLayoutAlign="center center">
-  <div class="img-wrapper flex-center-all">
-    <img src="../assets/web3auth_icon.png" alt="web3auth">
-  </div>
-  <ng-container *ngIf="!loggedIn">
-    <div class="b-700 font-52 title mt-24">Welcome</div>
-    <mat-spinner class="mt-24" [diameter]="40"></mat-spinner>
-    <div class="b-500 mt-16 font-16">Initializing Web3Auth, please wait</div>
-  </ng-container>
-  <ng-container *ngIf="loggedIn">
-    <div class="b-700 font-52 title mt-24 text-center">Successfully logged in</div>
-    <div class="b-500 mt-20 font-16">You can return to your app now</div>
-  </ng-container>
-</div>
+<router-outlet></router-outlet>
