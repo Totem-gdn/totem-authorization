@@ -10,7 +10,7 @@ export class SocketIoService {
   constructor() {}
 
   init() {
-    this.socketIo = io('http://auth-backend.totem.gdn', {
+    this.socketIo = io('https://auth-backend.totem.gdn', {
       transports: ['websocket']
     });
   }
