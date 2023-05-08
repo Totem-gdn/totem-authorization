@@ -9,26 +9,46 @@ export class SocketIoService {
   socketIo: any;
   constructor() {}
 
-  init() {
+initWs() {
     this.socketIo = io('https://auth-backend.totem.gdn', {
-      transports: ['websocket']
+        transports: ['websocket']
     });
-  }
-  listen() {
-    this.socketIo.on('connect', () => {
-      console.log('Connected');
-      this.socketIo.emit('connect:room', { room: 'room-1' });
-      this.socketIo.emit('events', { foo: 'bar' })
-    });
+}
+
+onWsConnect(): Observable<any> {
+  return new Observable<any>(observer => {
+    const resultHandler = (data: any) => {
+      observer.next({connected: true});
+    }
+    this.socketIo.on('connect', resultHandler);
+  });
+}
+
+emitRoomConnection(roomId: string) {
+  this.socketIo.emit('connect:room', { room: roomId });
+}
+
+emitData(data: any) {
+  this.socketIo.emit('events', {...data});
+}
+
+onEvents(): Observable<any> {
+  return new Observable<any>(observer => {
+    const resultHandler = (data: any) => {
+        observer.next(data);
+    }
+    this.socketIo.on('events', resultHandler);
+  });
+}
+
+/* listen() {
     this.socketIo.on('events', function(data: any) {
-      console.log('event', data);
-      //
+        console.log('event', data);
     });
     this.socketIo.on('disconnect', function() {
-      console.log('Disconnected');
+        console.log('Disconnected');
     });
-  }
-
+} */
 
   /* connect() {
     this.socket.on('connect', function () {

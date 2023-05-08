@@ -13,6 +13,7 @@ import { BaseStorageService } from "src/app/core/services/base-storage.service";
 import { AUTH_ENUM } from "src/app/core/enums/auth.enum";
 import { StorageKey } from "src/app/core/services/assets-transaction.service";
 import { OpenLoginUser } from "src/app/core/models/open-login.interface";
+import { SocketIoService } from "src/app/core/services/socket-io.service";
 
 @Component({
   selector: "app-auth",
@@ -26,6 +27,9 @@ export class AppAuth implements OnDestroy {
   loggedIn: boolean = false;
   loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
+  wsEnabled: string = '';
+  roomId: string = '';
+
   constructor(
     private route: ActivatedRoute,
     private web3auth: Web3AuthService,
@@ -34,7 +38,8 @@ export class AppAuth implements OnDestroy {
     private assetsService: AssetsService,
     private cryptoUtilsService: CryptoUtilsService,
     private paymentService: PaymentSuccessDialogService,
-    private localStorage: BaseStorageService
+    private localStorage: BaseStorageService,
+    private socketIoService: SocketIoService
   ) { }
 
   async ngOnInit() {
@@ -42,16 +47,52 @@ export class AppAuth implements OnDestroy {
 
       this.redirectUrl = params[AUTH_ENUM.SUCCESS_URL];
       this.gameId = params[AUTH_ENUM.GAME_ID];
-    });
+      this.wsEnabled = params[AUTH_ENUM.WEBSOCKETS_ENABLED];
 
-    this.login();
-    this.events$();
+      if (this.wsEnabled == 'true') {
+        this.roomId = params[AUTH_ENUM.ROOM_ID];
+        console.log(this.roomId);
+        this.performWsRedirection();
+        return;
+      }
+
+      this.login();
+      this.events$();
+    });
 
     // this.paymentService.openPaymentSuccessDialog(['asset', 'avatar']).subscribe(res => {
     //   // this.handleJwt(jwt);
     //   // this.loading$.next(false);
     // });
     // this.initAccount();
+  }
+
+  performWsRedirection() {
+    if (!this.roomId) {
+      this.login();
+      this.events$();
+      return;
+    }
+    this.socketIoService.initWs();
+    this.socketIoService.onWsConnect().subscribe((data: any) => {
+      console.log(data?.connected);
+      if (data?.connected) {
+        this.connectToRoomAndRedirect();
+      }
+    })
+  }
+
+  connectToRoomAndRedirect() {
+    this.socketIoService.onEvents().subscribe((data: any) => {
+      console.log(data);
+      if (data.type === 'user:connected') {
+        this.login();
+        this.events$();
+        console.log('AUTH STARTED');
+        //this.socketIoService.emitData({[AUTH_ENUM.PAYMENT_RESULT]: this.payment_result, ['asset_type']: this.type});
+      }
+    })
+    this.socketIoService.emitRoomConnection(this.roomId);
   }
 
   async login() {
@@ -112,8 +153,14 @@ export class AppAuth implements OnDestroy {
     localStorage.clear();
 
     if (!this.redirectUrl) {
+      if (this.wsEnabled && this.roomId) {
+        this.socketIoService.emitData({loggedIn: false});
+      }
       location.reload();
     } else {
+      if (this.wsEnabled && this.roomId) {
+        this.socketIoService.emitData({loggedIn: true});
+      }
       location.replace(this.redirectUrl + `?${AUTH_ENUM.TOKEN}=${jwt}`);
     }
   }

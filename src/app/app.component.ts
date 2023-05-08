@@ -6,9 +6,7 @@ import { SocketIoService } from "./core/services/socket-io.service";
   styleUrls: ["./app.component.scss"],
 })
 export class AppComponent implements OnInit {
-  constructor(private socketIoService: SocketIoService) {}
+  constructor() {}
   ngOnInit(): void {
-    this.socketIoService.init();
-    this.socketIoService.listen();
   }
 }
