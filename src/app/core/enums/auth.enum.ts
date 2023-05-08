@@ -4,5 +4,7 @@ export enum AUTH_ENUM {
   GAME_ID = 'game_id',
   APP_URL = 'appUrl',
   PAYMENT_RESULT = 'payment_result',
-  TYPE = 'type'
+  TYPE = 'type',
+  WEBSOCKETS_ENABLED = 'ws_enabled',
+  ROOM_ID = 'roomId'
 }

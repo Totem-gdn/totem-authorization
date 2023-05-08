@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { AUTH_ENUM } from "src/app/core/enums/auth.enum";
+import { SocketIoService } from "src/app/core/services/socket-io.service";
 
 @Component({
   selector: "app-purchase",
@@ -12,8 +13,12 @@ export class AppPurchase {
   payment_result: string = '';
   type: string = '';
 
+  wsEnabled: string = '';
+  roomId: string = '';
+
   constructor(
     private route: ActivatedRoute,
+    private socketIoService: SocketIoService
   ) { }
 
   async ngOnInit() {
@@ -21,12 +26,46 @@ export class AppPurchase {
       this.appUrl = params[AUTH_ENUM.APP_URL];
       this.payment_result = params[AUTH_ENUM.PAYMENT_RESULT];
       this.type = params[AUTH_ENUM.TYPE];
-      console.log('APP URL FOUND');
+
+      this.wsEnabled = params[AUTH_ENUM.WEBSOCKETS_ENABLED];
+      if (this.wsEnabled == 'true') {
+        this.roomId = params[AUTH_ENUM.ROOM_ID];
+        console.log(this.roomId);
+        this.performWsRedirection();
+        return;
+      }
+
       if (this.appUrl && this.appUrl.length) {
         console.log('APP URL FOUND: ', this.appUrl);
         this.prepareUrlToRedirect(this.appUrl);
       }
     });
+  }
+
+  performWsRedirection() {
+    if (!this.roomId) {
+      this.prepareUrlToRedirect(this.appUrl);
+      return;
+    }
+    this.socketIoService.initWs();
+    this.socketIoService.onWsConnect().subscribe((data: any) => {
+      console.log(data?.connected);
+      if (data?.connected) {
+        this.connectToRoomAndRedirect();
+      }
+    })
+  }
+
+  connectToRoomAndRedirect() {
+    this.socketIoService.onEvents().subscribe((data: any) => {
+      console.log(data);
+      if (data.type === 'user:connected') {
+        this.prepareUrlToRedirect(this.appUrl);
+        console.log('REDIRECT TO GAME');
+        //this.socketIoService.emitData({[AUTH_ENUM.PAYMENT_RESULT]: this.payment_result, ['asset_type']: this.type});
+      }
+    })
+    this.socketIoService.emitRoomConnection(this.roomId);
   }
 
   prepareUrlToRedirect(url: string) {
@@ -58,6 +97,9 @@ export class AppPurchase {
 
   checkDeviceAndRedirect(androidLink: string, defaultLink: string) {
     let userAgent = navigator.userAgent || navigator.vendor;
+    if (this.wsEnabled && this.roomId) {
+      this.socketIoService.emitData({[AUTH_ENUM.PAYMENT_RESULT]: this.payment_result, ['asset_type']: this.type});
+    }
     if (userAgent.includes("HUAWEI") || userAgent.includes("Android")) {
         // ANdroid
         console.log('INTENT REDIRECT');
