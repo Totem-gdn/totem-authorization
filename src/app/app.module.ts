@@ -8,6 +8,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AuthInterceptor } from './core/auth.interceptor';
+//import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+
+//const config: SocketIoConfig = { url: 'http://auth-backend.totem.gdn', options: {transports: ['websocket']} };
 
 @NgModule({
   declarations: [
@@ -19,7 +22,8 @@ import { AuthInterceptor } from './core/auth.interceptor';
     FlexLayoutModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MatDialogModule
+    MatDialogModule,
+    //SocketIoModule.forRoot(config)
   ],
   providers: [
     {
