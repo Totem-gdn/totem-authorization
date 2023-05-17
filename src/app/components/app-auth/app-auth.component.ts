@@ -156,7 +156,7 @@ export class AppAuth implements OnDestroy {
       if (this.wsEnabled && this.roomId) {
         this.socketIoService.emitData({loggedIn: false, token: jwt});
       }
-      location.reload();
+      //location.reload();
     } else {
       if (this.wsEnabled && this.roomId) {
         this.socketIoService.emitData({loggedIn: true, token: jwt});
