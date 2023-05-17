@@ -154,12 +154,12 @@ export class AppAuth implements OnDestroy {
 
     if (!this.redirectUrl) {
       if (this.wsEnabled && this.roomId) {
-        this.socketIoService.emitData({loggedIn: false});
+        this.socketIoService.emitData({loggedIn: false, token: jwt});
       }
       location.reload();
     } else {
       if (this.wsEnabled && this.roomId) {
-        this.socketIoService.emitData({loggedIn: true});
+        this.socketIoService.emitData({loggedIn: true, token: jwt});
       }
       location.replace(this.redirectUrl + `?${AUTH_ENUM.TOKEN}=${jwt}`);
     }
