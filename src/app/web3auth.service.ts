@@ -67,7 +67,9 @@ export class Web3AuthService {
         return;
       }
       const web3auth = this.web3auth;
+      document.getElementById('w3a-container')!.style.visibility = 'visible';
       this.provider = await web3auth.connect();
+      document.getElementById('w3a-container')!.style.visibility = 'hidden';
       console.log('LLGIN')
 
     };
@@ -189,7 +191,7 @@ export class Web3AuthService {
       let jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
       }).join(''));
-  
+
       return JSON.parse(jsonPayload);
     };
 }
