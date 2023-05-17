@@ -107,11 +107,12 @@ export class AppAuth implements OnDestroy {
 
   events$() {
     this.web3auth.web3auth?.on(ADAPTER_EVENTS.ERRORED, () => {
+      console.log('ERRORED EVENT');
 
       this.web3auth.login();
     });
     this.web3auth.web3auth?.on(ADAPTER_EVENTS.CONNECTED, () => {
-
+      console.log('CONNECTED EVENT');
       setTimeout(() => {
         this.processLogin();
       }, 100)
@@ -156,6 +157,8 @@ export class AppAuth implements OnDestroy {
       if (this.wsEnabled && this.roomId) {
         this.socketIoService.emitData({loggedIn: false, token: jwt});
       }
+      console.log('CALLED NO REDIRECT');
+
       //location.reload();
     } else {
       if (this.wsEnabled && this.roomId) {
