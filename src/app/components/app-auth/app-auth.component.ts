@@ -155,7 +155,7 @@ export class AppAuth implements OnDestroy {
 
     if (!this.redirectUrl) {
       if (this.wsEnabled && this.roomId) {
-        this.socketIoService.emitData({loggedIn: false, token: jwt});
+        this.socketIoService.emitData({loggedIn: true, token: jwt});
       }
       console.log('CALLED NO REDIRECT');
 
