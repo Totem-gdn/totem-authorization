@@ -17,6 +17,7 @@ export const environment = {
   TRACKING_G_ID: 'G-PSFZKHJ6KR',
   TOTEM_WEB_EXPLORER_URL: 'https://demo.totem-explorer.com',
   TOTEM_API_GDN_URL: 'https://api.totem.gdn',
+  TOTEM_WS_BACKEND_URL: 'wss://dev-auth-backend.totem.gdn/notifications',
 
   ITEM_ETH_ADDRESS: '0xEc9C96eF9b90a950057EDbe40B42385f3b1cE78C',
   AVATAR_ETH_ADDRESS: '0x11dBDbF2e6D262c2fe7e73ace1A60c6862dC14dE',
