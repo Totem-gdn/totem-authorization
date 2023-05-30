@@ -12,6 +12,7 @@ export class AppPurchase {
   appUrl: string = '';
   payment_result: string = '';
   type: string = '';
+  autoClose: boolean = false;
 
   wsEnabled: string = '';
   roomId: string = '';
@@ -26,6 +27,16 @@ export class AppPurchase {
       this.appUrl = params[AUTH_ENUM.APP_URL];
       this.payment_result = params[AUTH_ENUM.PAYMENT_RESULT];
       this.type = params[AUTH_ENUM.TYPE];
+      if (params[AUTH_ENUM.AUTO_CLOSE]) {
+        let flag = params[AUTH_ENUM.AUTO_CLOSE];
+        if (flag !== 'true') {
+          console.log('AUTO CLOSE IS NOT USED')
+          this.autoClose = false;
+        } else {
+          console.log('AUTO CLOSE ENBALED')
+          this.autoClose = true;
+        }
+      }
 
       this.wsEnabled = params[AUTH_ENUM.WEBSOCKETS_ENABLED];
       if (this.wsEnabled == 'true') {
@@ -104,20 +115,31 @@ export class AppPurchase {
         // ANdroid
         console.log('INTENT REDIRECT');
         try {
-          window.location.replace(androidLink);
+          if (this.autoClose) {
+            window.close();
+          } else {
+            window.location.replace(androidLink);
+          }
         } catch (err) {
           console.log(err);
         }
 
         setTimeout(() => {
           console.log('9 sec');
-          window.location.replace(defaultLink);
+          if (this.autoClose) {
+            window.close();
+          } else {
+            window.location.replace(defaultLink);
+          }
         }, 9000);
     } else {
         // PC & ios
         console.log('Other device, starting redirect');
-
-        window.location.replace(defaultLink);
+        if (this.autoClose) {
+          window.close();
+        } else {
+          window.location.replace(defaultLink);
+        }
     }
   }
 

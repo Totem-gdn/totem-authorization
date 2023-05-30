@@ -5,6 +5,7 @@ export enum AUTH_ENUM {
   APP_URL = 'appUrl',
   PAYMENT_RESULT = 'payment_result',
   TYPE = 'type',
+  AUTO_CLOSE = 'autoClose',
   WEBSOCKETS_ENABLED = 'ws_enabled',
   ROOM_ID = 'roomId'
 }
