@@ -29,6 +29,7 @@ export class AppAuth implements OnDestroy {
 
   wsEnabled: string = '';
   roomId: string = '';
+  autoClose: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -48,6 +49,16 @@ export class AppAuth implements OnDestroy {
       this.redirectUrl = params[AUTH_ENUM.SUCCESS_URL];
       this.gameId = params[AUTH_ENUM.GAME_ID];
       this.wsEnabled = params[AUTH_ENUM.WEBSOCKETS_ENABLED];
+      if (params[AUTH_ENUM.AUTO_CLOSE]) {
+        let flag = params[AUTH_ENUM.AUTO_CLOSE];
+        if (flag !== 'true') {
+          console.log('AUTO CLOSE IS NOT USED')
+          this.autoClose = false;
+        } else {
+          console.log('AUTO CLOSE ENBALED')
+          this.autoClose = true;
+        }
+      }
 
       if (this.wsEnabled == 'true') {
         this.roomId = params[AUTH_ENUM.ROOM_ID];
@@ -158,13 +169,19 @@ export class AppAuth implements OnDestroy {
         this.socketIoService.emitData({loggedIn: true, token: jwt});
       }
       console.log('CALLED NO REDIRECT');
-
+      if (this.autoClose) {
+        window.close();
+      }
       //location.reload();
     } else {
       if (this.wsEnabled && this.roomId) {
         this.socketIoService.emitData({loggedIn: true, token: jwt});
       }
-      location.replace(this.redirectUrl + `?${AUTH_ENUM.TOKEN}=${jwt}`);
+      if (this.autoClose) {
+        window.close();
+      } else {
+        location.replace(this.redirectUrl + `?${AUTH_ENUM.TOKEN}=${jwt}`);
+      }
     }
   }
 
