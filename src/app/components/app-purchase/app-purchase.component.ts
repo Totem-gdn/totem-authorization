@@ -1,7 +1,9 @@
 import { Component } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { AUTH_ENUM } from "src/app/core/enums/auth.enum";
+import { AssetsListenerService } from "src/app/core/services/tx-service/assets-transaction.service";
 import { SocketIoService } from "src/app/core/services/socket-io.service";
+import { timer } from "rxjs";
 
 @Component({
   selector: "app-purchase",
@@ -12,6 +14,7 @@ export class AppPurchase {
   appUrl: string = '';
   payment_result: string = '';
   type: string = '';
+  wallet: string = '';
   autoClose: boolean = false;
 
   wsEnabled: string = '';
@@ -19,7 +22,8 @@ export class AppPurchase {
 
   constructor(
     private route: ActivatedRoute,
-    private socketIoService: SocketIoService
+    private socketIoService: SocketIoService,
+    private assetsListenerService: AssetsListenerService,
   ) { }
 
   async ngOnInit() {
@@ -27,6 +31,7 @@ export class AppPurchase {
       this.appUrl = params[AUTH_ENUM.APP_URL];
       this.payment_result = params[AUTH_ENUM.PAYMENT_RESULT];
       this.type = params[AUTH_ENUM.TYPE];
+      this.wallet = params[AUTH_ENUM.WALLET];
       if (params[AUTH_ENUM.AUTO_CLOSE]) {
         let flag = params[AUTH_ENUM.AUTO_CLOSE];
         if (flag !== 'true') {
@@ -55,6 +60,7 @@ export class AppPurchase {
 
   performWsRedirection() {
     if (!this.roomId) {
+      if (!this.appUrl) return; // REDIRECT REMOVED !WARNING!
       this.prepareUrlToRedirect(this.appUrl);
       return;
     }
@@ -67,10 +73,32 @@ export class AppPurchase {
     })
   }
 
+  listenTransactionEnd() {
+    console.log('==== listenTransaction ====');
+    this.assetsListenerService.assetTxState.subscribe((state: string | null) => {
+      if (state == 'success' || state == 'error') {
+        console.log('MINTING SUCCESS');
+
+        this.sendWithDelay({
+          [AUTH_ENUM.PAYMENT_RESULT]: this.payment_result,
+          ['asset_type']: this.type,
+          ['minting_status']: state
+        });
+      }
+    })
+    this.assetsListenerService.listenTx(this.wallet, this.type);
+  }
+
   connectToRoomAndRedirect() {
     this.socketIoService.onEvents().subscribe((data: any) => {
       console.log(data);
       if (data.type === 'user:connected') {
+        if (this.wallet) {
+          console.log('WALLET: ', this.wallet);
+          this.listenTransactionEnd();
+          return;
+        }
+        if (!this.appUrl) return; // REDIRECT REMOVED !WARNING!
         this.prepareUrlToRedirect(this.appUrl);
         console.log('REDIRECT TO GAME');
         //this.socketIoService.emitData({[AUTH_ENUM.PAYMENT_RESULT]: this.payment_result, ['asset_type']: this.type});
@@ -141,6 +169,30 @@ export class AppPurchase {
           window.location.replace(defaultLink);
         }
     }
+  }
+
+  sendWithDelay(body: {payment_result: string, asset_type: string, minting_status: string}) {
+    console.log('CLOSE WITH DELAY');
+
+    let count: number = 6;
+    let counter = timer(1000, 1000).subscribe(() => {
+      count -= 1;
+      if (count == 0) {
+        this.socketIoService.emitData(body);
+        if (this.autoClose) {
+          this.simpleClose();
+          return;
+        }
+        if (this.appUrl) {
+          this.prepareUrlToRedirect(this.appUrl);
+        };
+        counter.unsubscribe();
+      }
+    })
+  }
+
+  simpleClose() {
+    window.close();
   }
 
   appendParams(url: string): string {
