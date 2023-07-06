@@ -1,0 +1,26 @@
+.img-wrapper {
+  height: 60px;
+  width: 60px;
+  img {
+    height: 100%;
+    width: 100%;
+  }
+}
+/* .title {
+  background: linear-gradient(90deg, #13d343 0%, #1B6BEC 32.29%, #9824CF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+} */
+
+.info-block {
+  max-width: 340px;
+  width: 100%;
+  height: auto;
+  padding: 24px;
+  font-size: 14px;
+  color: #8A93A0;
+  background-color: #f3f3f3;
+  border: 1px solid #d6d6d6;
+  border-radius: 12px;
+  margin-top: 32px;
+}
