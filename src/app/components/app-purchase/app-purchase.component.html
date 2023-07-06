@@ -1,0 +1,22 @@
+<div class="h-full w-full" fxLayout="column" fxLayoutAlign="center center">
+  <div class="img-wrapper flex-center-all">
+    <img src="../assets/images/logo-192.png" alt="totem">
+  </div>
+  <div class="b-700 font-44 title mt-20">Asset Purchase</div>
+  <ng-container *ngIf="loading">
+    <mat-spinner class="mt-28" [diameter]="40"></mat-spinner>
+    <div class="b-500 mt-16 font-16">Minting in progress, please wait...</div>
+  </ng-container>
+  <ng-container *ngIf="!loading && mintingStatus">
+    <div class="b-700 font-36 title mt-24 text-center">{{mintingStatus === 'success' ? 'Success' : mintingStatus === 'error' ? 'Minting failed' : 'Success'}}</div>
+    <div class="b-500 mt-10 font-16">You can return to your app now</div>
+  </ng-container>
+  <ng-container *ngIf="!loading && !mintingStatus">
+    <div class="b-700 font-36 title mt-24 text-center">Success</div>
+    <div class="b-500 mt-10 font-16">You can return to your app now</div>
+  </ng-container>
+  <div *ngIf="timedOut && loading" class="info-block">
+    <p>Sometimes, minting can take up to 5 minutes, you can wait longer or just return to your app</p>
+  </div>
+
+</div>

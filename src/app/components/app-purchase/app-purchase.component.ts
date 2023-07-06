@@ -11,6 +11,9 @@ import { timer } from "rxjs";
   styleUrls: ["./app-purchase.component.scss"],
 })
 export class AppPurchase {
+  loading: boolean = false;
+  mintingStatus: 'success' | 'error' | '' = '';
+  timedOut: boolean = false;
   appUrl: string = '';
   payment_result: string = '';
   type: string = '';
@@ -42,7 +45,7 @@ export class AppPurchase {
           this.autoClose = true;
         }
       }
-
+      this.loading = true;
       this.wsEnabled = params[AUTH_ENUM.WEBSOCKETS_ENABLED];
       if (this.wsEnabled == 'true') {
         this.roomId = params[AUTH_ENUM.ROOM_ID];
@@ -78,13 +81,15 @@ export class AppPurchase {
     this.assetsListenerService.assetTxState.subscribe((state: string | null) => {
       if (state == 'success' || state == 'error') {
         console.log('MINTING SUCCESS');
-
+        console.log(state);
         this.sendWithDelay({
           [AUTH_ENUM.PAYMENT_RESULT]: this.payment_result,
           ['asset_type']: this.type,
           ['minting_status']: state
         });
       }
+      console.log('subbed');
+      this.startTimeOutCounter();
     })
     this.assetsListenerService.listenTx(this.wallet, this.type);
   }
@@ -135,6 +140,7 @@ export class AppPurchase {
   }
 
   checkDeviceAndRedirect(androidLink: string, defaultLink: string) {
+    this.loading = false;
     let userAgent = navigator.userAgent || navigator.vendor;
     if (this.wsEnabled && this.roomId) {
       this.socketIoService.emitData({[AUTH_ENUM.PAYMENT_RESULT]: this.payment_result, ['asset_type']: this.type});
@@ -171,7 +177,7 @@ export class AppPurchase {
     }
   }
 
-  sendWithDelay(body: {payment_result: string, asset_type: string, minting_status: string}) {
+  sendWithDelay(body: {payment_result: string, asset_type: string, minting_status: 'success' | 'error' | ''}) {
     console.log('CLOSE WITH DELAY');
 
     let count: number = 6;
@@ -179,6 +185,9 @@ export class AppPurchase {
       count -= 1;
       if (count == 0) {
         this.socketIoService.emitData(body);
+        this.mintingStatus = body.minting_status;
+        this.loading = false;
+        console.log(this.mintingStatus, this.loading);
         if (this.autoClose) {
           this.simpleClose();
           return;
@@ -186,6 +195,20 @@ export class AppPurchase {
         if (this.appUrl) {
           this.prepareUrlToRedirect(this.appUrl);
         };
+        counter.unsubscribe();
+      }
+    })
+  }
+  startTimeOutCounter() {
+    console.log('started timeout');
+
+    let count: number = 40;
+    let counter = timer(1000, 1000).subscribe(() => {
+      count -= 1;
+      if (count == 0) {
+        if (!this.mintingStatus) {
+          this.timedOut = true;
+        }
         counter.unsubscribe();
       }
     })
