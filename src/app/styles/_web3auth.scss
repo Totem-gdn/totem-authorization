@@ -173,6 +173,9 @@
     font-size: 14px !important;
   }
 }
+.w3a-parent-container .col-span-2 {
+  grid-column: unset !important;
+}
 .w3a-adapter-list {
   grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
   li:first-child {

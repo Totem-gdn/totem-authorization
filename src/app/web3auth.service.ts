@@ -27,7 +27,8 @@ export class Web3AuthService {
           rpcTarget: environment.BLOCKCHAIN_CONFIG.rpcTarget
         },
         uiConfig: {
-          theme: 'dark'
+          // theme: 'dark'
+          
       }
       });
       const web3auth = this.web3auth;
