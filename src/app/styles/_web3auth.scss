@@ -7,9 +7,9 @@
 
   .w3ajs-email-passwordless-form {
     input:-webkit-autofill,
-  input:-webkit-autofill:hover,
-  input:-webkit-autofill:focus,
-  input:-webkit-autofill:active {
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
       -webkit-text-fill-color: $white !important;
       color: $white !important;
       -webkit-box-shadow: 0 0 0 30px $black inset !important;
@@ -17,6 +17,31 @@
     }
   }
 
+  .w3a-header {
+    padding-top: 0 !important;
+  }
+  .w3a-group--passwordless .w3a-group__title {
+    &::after {
+      position: absolute;
+      content: "Email";
+      visibility: visible;
+    }
+    visibility: hidden !important;
+  }
+  .w3a-header__subtitle {
+    &::after {
+      position: absolute;
+      content: "Select one of following to continue";
+      visibility: visible;
+    }
+    visibility: hidden !important;
+  }
+  .w3ajs-passwordless-form {
+    button {
+      font-family: Totem;
+      text-transform: uppercase;
+    }
+  }
   button.w3a-header__button.w3ajs-close-btn {
     display: none !important;
   }
@@ -85,6 +110,7 @@
   }
   .w3a-group__title {
     color: $light-grey !important;
+    text-transform: uppercase;
   }
   .w3a-external-toggle button {
     margin-bottom: 0px !important;
@@ -232,7 +258,8 @@
 .w3a-modal__loader {
   // background-color: #142630 !important;
 }
-.w3a-modal__loader-bridge-message, .w3a-modal__loader-bridge-message {
+.w3a-modal__loader-bridge-message,
+.w3a-modal__loader-bridge-message {
   color: $light-grey !important;
 }
 // .w3a-modal__connector-beat {
